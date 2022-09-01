@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 import axios from 'axios'
-import { url } from "../../Config/axiosConfig";
+import { setHeaders, url } from "../../Config/axiosConfig";
 
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
@@ -31,7 +31,23 @@ export const registerUser = createAsyncThunk(
           password: values.password,
         });
   
-        localStorage.setItem("token", token.data);
+        localStorage.setItem("token", JSON.stringify(token.data));
+        return token.data;
+      } catch (error) {
+        console.log(error.response);
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
+
+  export const getCategories = createAsyncThunk(
+    "auth/getCategories",
+    async ( { rejectWithValue }) => {
+      try {
+        const token = await axios.get(`${url}/categories`, setHeaders());
+  
+        localStorage.setItem("token", JSON.stringify(token.data));
+  
         return token.data;
       } catch (error) {
         console.log(error.response);

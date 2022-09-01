@@ -5,6 +5,8 @@ import SignUp from './Pages/SignUp';
 import SignIn from './Pages/SignIn';
 import Navbar from './Components/Navbar';
 import Dashboard from './Pages/Dashboard';
+import Model from './utils/Model';
+
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
     <Route excat path='/signup' element={<SignUp/>} />
     <Route excat path='/signin' element={<SignIn/>} />
     <Route excat path='/dashboard' element={<Dashboard/>} />
+    <Route excat path='/model' element={<Model/>} />
+
 
 
     

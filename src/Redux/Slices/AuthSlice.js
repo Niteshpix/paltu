@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "../services/Apis";
+import { getCategories, loginUser, registerUser } from "../services/Apis";
 
 const initialState = {
-  token: localStorage.getItem("token", JSON.stringify("token")),
+  token: localStorage.getItem("token"),
   name: "",
   email: "",
   _id: "",
@@ -97,6 +97,35 @@ export const AuthSlice = createSlice({
           ...state,
           loginStatus: "rejected",
           loginError: action.payload,
+        };
+      });
+
+      //getCategories
+      builder.addCase(getCategories.pending, (state, action) => {
+        return {
+          ...state,
+          getCategoriesStatus: "pending",
+        };
+      });
+      builder.addCase(getCategories.fulfilled, (state, action) => {
+        if (action.payload) {
+          const user = action.payload;
+          return {
+            ...state,
+            token: action.payload,
+            name: user.name,
+            email: user.email,
+            _id: user._id,
+            isAdmin: user.isAdmin,
+            getCategoriesStatus: "success",
+          };
+        } else return state;
+      });
+      builder.addCase(getCategories.rejected, (state, action) => {
+        return {
+          ...state,
+          getCategoriesStatus: "rejected",
+          getCategoriesError: action.payload,
         };
       });
       

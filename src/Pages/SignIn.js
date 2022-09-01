@@ -1,4 +1,13 @@
-import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Grid,
+  Paper,
+  Typography,
+  Modal,
+  Box,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,12 +34,31 @@ function SignIn() {
     height: "70vh",
     width: 550,
     margin: "20px auto",
-    borderRadius:"20px" 
+    borderRadius: "20px",
   };
+
+  const style = {
+    position: "absolute",
+    top: "40%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    height:500,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    
+  };
+
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loginStatus } = useSelector((state) => state.auth);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -85,8 +113,10 @@ function SignIn() {
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">
-            <h2>SignIn !!<Avatar style={avatarStyle}></Avatar></h2>
-            <div style={{ marginTop: "12px", }}>
+            <h2>
+              SignIn !!<Avatar style={avatarStyle}></Avatar>
+            </h2>
+            <div style={{ marginTop: "12px" }}>
               <ReactFacebookLogin
                 appId="1098101744147998"
                 autoLoad={false}
@@ -141,15 +171,15 @@ function SignIn() {
                 />
 
                 <Button variant="contained" color="success" type="submit">
-                {loginStatus === "pending" ? "Submitting..." : "Login"}
-
+                  {loginStatus === "pending" ? "Submitting..." : "Login"}
                 </Button>
 
+
+                <br></br>
+                <Button onClick={handleOpen}>Forgot password ?</Button>
+
                 <Typography>
-                  <Link to={"/"}>Forgot password ?</Link>
-                </Typography>
-                <Typography>
-                  Do you have already account ?
+                  Do you have No account ?
                   <Link to={"/signup"}>
                     <Button color="inherit">SignUp</Button>
                   </Link>
@@ -157,6 +187,25 @@ function SignIn() {
               </Form>
             )}
           </Formik>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Forgot your passsword
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Enter the email associated with your account and we'll send an email to reset your password.
+              </Typography>
+              <TextField sx={{ mt: 2 }} id="outlined-basic" label="Enter Your Email" variant="outlined" />
+              <Button style={{borderRadius:"20px",marginTop:"8px", marginRight:"200px"}} variant="contained">Send !!</Button>
+
+            </Box>
+          </Modal>
         </Paper>
       </Grid>
     </div>
