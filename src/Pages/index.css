@@ -1,0 +1,23 @@
+.welcome{
+    display: flex;
+    margin-top: 5vh;
+    justify-content: center;
+}
+.banner{
+    text-align: center;
+}
+.styleform{
+    margin-top: 20px;
+
+    
+  }
+  .styleform input {
+    height: 35px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid rgb(220, 220, 220);
+    margin-bottom: 1rem;
+
+   
+  }
