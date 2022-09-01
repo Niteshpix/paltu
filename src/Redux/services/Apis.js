@@ -31,7 +31,7 @@ export const registerUser = createAsyncThunk(
           password: values.password,
         });
   
-        localStorage.setItem("token", token.data);
+        localStorage.setItem("token", JSON.stringify(token.data));
         return token.data;
       } catch (error) {
         console.log(error.response);
