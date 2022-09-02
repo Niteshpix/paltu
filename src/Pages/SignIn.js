@@ -1,4 +1,11 @@
-import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Grid,
+  Paper,
+  Typography,
+ 
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,12 +32,19 @@ function SignIn() {
     height: "70vh",
     width: 550,
     margin: "20px auto",
-    borderRadius:"20px" 
+    borderRadius: "20px",
   };
+
+ 
+
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loginStatus } = useSelector((state) => state.auth);
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -40,7 +54,7 @@ function SignIn() {
   const { email, password } = user;
   const handleSubmit = () => {
     dispatch(loginUser(user));
-    navigate("/dashboard");
+    navigate("/forget-password");
   };
 
   const HandleChange = (e) => {
@@ -80,13 +94,19 @@ function SignIn() {
     // }
   };
 
+  const forgetpass=()=>{
+    navigate("/forget-password")
+  }
+
   return (
     <div>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">
-            <h2>SignIn !!<Avatar style={avatarStyle}></Avatar></h2>
-            <div style={{ marginTop: "12px", }}>
+            <h2>
+              SignIn !!<Avatar style={avatarStyle}></Avatar>
+            </h2>
+            <div style={{ marginTop: "12px" }}>
               <ReactFacebookLogin
                 appId="1098101744147998"
                 autoLoad={false}
@@ -141,15 +161,15 @@ function SignIn() {
                 />
 
                 <Button variant="contained" color="success" type="submit">
-                {loginStatus === "pending" ? "Submitting..." : "Login"}
-
+                  {loginStatus === "pending" ? "Submitting..." : "Login"}
                 </Button>
 
+
+                <br></br>
+                <Button onClick={forgetpass}>Forgot password ?</Button>
+
                 <Typography>
-                  <Link to={"/"}>Forgot password ?</Link>
-                </Typography>
-                <Typography>
-                  Do you have already account ?
+                  Do you have No account ?
                   <Link to={"/signup"}>
                     <Button color="inherit">SignUp</Button>
                   </Link>
@@ -157,6 +177,8 @@ function SignIn() {
               </Form>
             )}
           </Formik>
+
+         
         </Paper>
       </Grid>
     </div>

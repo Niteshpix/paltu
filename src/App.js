@@ -1,19 +1,34 @@
-import './App.css';
+import "./App.css";
+import Navbar from "./Components/Navbar";
 
-
-
-import Navbar from './Components/Navbar';
-import Layout from './Layout/Layout';
+// import Dashboard from './Pages/Dashboard';
+import "./App.css";
+import Layout from "./Layout/Layout";
+import UpdatePasswordForm from "./Pages/ForgetPassword/UpdatePasswordForm";
 
 
 function App() {
   return (
     <>
-    <Navbar />
- <Layout/>
+      <Navbar />
+      <UpdatePasswordForm/>
     
+
+ <Layout/>
+      
     </>
   );
 }
+
+// function App() {
+//   return (
+//     <>
+//     <Navbar />
+//    <Layout/>
+//    <Dashboard/>
+
+//     </>
+//   );
+// }
 
 export default App;

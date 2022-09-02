@@ -18,7 +18,7 @@ function Navbar() {
             </Typography>
             </Link>
             {
-            
+              
             }
             <Link style={{ textDecoration: "none",  }} to={"/signin"}>
               <Button color="secondary">SignIn</Button>
