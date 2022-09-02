@@ -78,7 +78,7 @@ function SignUp() {
             </Typography>
             <Typography>
               Do you have an account ?
-              <Link to={"/signin"}>
+              <Link to={"/"}>
                 <Button color="secondary">SignIn</Button>
               </Link>
             </Typography>

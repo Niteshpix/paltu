@@ -31,9 +31,8 @@ const SigninSchema = Yup.object().shape({
 function SignIn() {
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    height: "80vh",
     width: 550,
-    margin: "20px auto",
     borderRadius: "20px",
   };
 
@@ -69,6 +68,7 @@ function SignIn() {
   const handleSubmit = () => {
     dispatch(loginUser(user));
     navigate("/dashboard");
+   
   };
 
   const HandleChange = (e) => {
@@ -201,6 +201,7 @@ function SignIn() {
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Enter the email associated with your account and we'll send an email to reset your password.
               </Typography>
+             
               <TextField sx={{ mt: 2 }} id="outlined-basic" label="Enter Your Email" variant="outlined" />
               <Button style={{borderRadius:"20px",marginTop:"8px", marginRight:"200px"}} variant="contained">Send !!</Button>
 

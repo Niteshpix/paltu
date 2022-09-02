@@ -10,7 +10,7 @@ const initialState = {
   registerError: "",
   loginStatus: "",
   loginError: "",
-  userLoaded: false,
+  userLoaded: "",
 };
 
 export const AuthSlice = createSlice({
@@ -45,6 +45,8 @@ export const AuthSlice = createSlice({
           registerError: "",
           loginStatus: "",
           loginError: "",
+          isAuthUser: "", 
+
         };
       },
   },
@@ -63,6 +65,7 @@ export const AuthSlice = createSlice({
           email: user.email,
           _id: user._id,
           registerStatus: "success",
+
         };
       } else return state;
     });
@@ -89,6 +92,7 @@ export const AuthSlice = createSlice({
             _id: user._id,
             isAdmin: user.isAdmin,
             loginStatus: "success",
+            isAuthUser: true, 
           };
         } else return state;
       });
