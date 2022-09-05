@@ -41,8 +41,8 @@ function SignUp() {
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">
             <h2>SignUp !!<Avatar style={avatarStyle}></Avatar></h2>
-            <ToastContainer>{toast(token.message)}</ToastContainer>
-            <div style={{ color: "red" }}>{token.messages}</div>
+            <ToastContainer>{toast(token?.message)}</ToastContainer>
+            <div style={{ color: "red" }}>{token?.messages}</div>
           </Grid>
           <form className="styleform" onSubmit={handleSubmit}>
             <label className="form-label">Name</label>

@@ -1,15 +1,12 @@
-import React from 'react'
-
-
-import Router from '../Router/Router'
+import React from "react";
+import Router from "../Router/Router";
 
 function Layout() {
   return (
     <div>
-
-        <Router/>
+      <Router />
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

@@ -46,7 +46,6 @@ function SignIn() {
     dispatch(loginUser(user));
     navigate("/dashboard");
 
-    navigate("/forget-password");
   };
 
   const HandleChange = (e) => {
