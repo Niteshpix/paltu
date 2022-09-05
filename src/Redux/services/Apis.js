@@ -52,6 +52,7 @@ export const getCategories = createAsyncThunk(
   }
 );
 
+
 //services
 export const getServices = createAsyncThunk(
   "services/servicesFetch",
@@ -88,3 +89,4 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
     console.log(error.response);
   }
 });
+

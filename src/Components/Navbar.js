@@ -7,7 +7,8 @@ import "./index.css";
 import { IconContext } from "react-icons";
 import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../Redux/services/Apis";
 
 function Navbar() {
   const [isLogged, setisLogged] = useState(false);
@@ -41,9 +42,15 @@ function Navbar() {
     localStorage.removeItem("token");
     setisLogged(false);
   };
+  const dispatch = useDispatch();
 
   const { items: data, status } = useSelector((state) => state.profile);
   console.log(data)
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
+
 
   return (
     <div>
