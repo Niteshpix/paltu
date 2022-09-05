@@ -25,7 +25,7 @@ const passwordReset = createSlice({
     	state.isLoading = false;
     	state.status = "success";
     	state.message = payload;
-    	 state.showOtpForm = false;
+    	 state.showUpdatePassForm = false;
      },
     otpReqFail: (state, { payload }) => {
       state.isLoading = false;

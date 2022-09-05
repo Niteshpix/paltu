@@ -20,15 +20,5 @@ function App() {
   );
 }
 
-// function App() {
-//   return (
-//     <>
-//     <Navbar />
-//    <Layout/>
-//    <Dashboard/>
-
-//     </>
-//   );
-// }
 
 export default App;
