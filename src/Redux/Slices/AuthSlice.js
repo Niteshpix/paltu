@@ -6,10 +6,8 @@ import { loginUser, registerUser } from "../services/Apis";
 const initialState = {
   token: localStorage.getItem("token"),
   name: "",
-  
   _id: "",
   registerStatus: "",
-  
   registerError: "",
   loginStatus: "",
   loginError: "",

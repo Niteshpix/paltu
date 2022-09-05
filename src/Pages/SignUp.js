@@ -19,7 +19,7 @@ function SignUp() {
   const avatarStyle = { backgroundColor: "#1bbd7e" };
 
   const dispatch = useDispatch();
-  const { registerStatus, registerError, token } = useSelector((state) => state.auth);
+  const { registerStatus, registerError, token  } = useSelector((state) => state.auth);
   //console.log(auth)
 
   const [user, setUser] = useState({
@@ -41,8 +41,8 @@ function SignUp() {
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">
             <h2>SignUp !!<Avatar style={avatarStyle}></Avatar></h2>
-            <ToastContainer>{toast(token.message)}</ToastContainer>
-            <div style={{ color: "red" }}>{token.messages}</div>
+            <ToastContainer>{toast(token?.message)}</ToastContainer>
+            <div style={{ color: "red" }}>{token?.message}</div>
           </Grid>
           <form className="styleform" onSubmit={handleSubmit}>
             <label className="form-label">Name</label>

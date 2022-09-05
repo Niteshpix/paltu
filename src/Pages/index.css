@@ -1,7 +1,10 @@
+
+
 .welcome{
     display: flex;
     margin-top: 5vh;
     justify-content: center;
+    padding: 10px;
 }
 .banner{
     text-align: center;
@@ -21,7 +24,8 @@
 
    
   }
-
-  .dashbard{
-    padding-left: 20px;
+  .dashboard{
+    border: 1px solid red;
+    height: 95vh;
   }
+

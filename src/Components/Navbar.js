@@ -1,34 +1,139 @@
-import React from "react";
-import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-
+import { SidebarData } from "../Components/SlidebarData";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import "./index.css";
+import { IconContext } from "react-icons";
+import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 function Navbar() {
-//   const {  user } = useSelector((state) => state.auth);
-// console.log(user)
+  const [isLogged, setisLogged] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const showSidebar = () => setSidebar(!sidebar);
+
+  useEffect(() => {
+    checkStorage();
+    return () => {};
+  }, [isLogged]);
+
+  function checkStorage() {
+    if (localStorage.getItem("token", "token")) {
+      setisLogged(true);
+    } else {
+      setisLogged(false);
+    }
+  }
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setisLogged(false);
+  };
+
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar >
-          <Link style={{ textDecoration: "none", color:"white" }} to={"/"}>
-            <Typography variant="h6" component="div" sx={{ mr: 2 }}>
-              Paltu
-            </Typography>
-            </Link>
-            {
-              
-            }
-            <Link style={{ textDecoration: "none",  }} to={"/signin"}>
-              <Button color="secondary">SignIn</Button>
-            </Link>
-            <Link style={{ textDecoration: "none" }} to={"/signup"}>
-              <Button color="secondary">SignUp</Button>
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <IconContext.Provider value={{ color: "#FFF" }}>
+        <div className="navbar">
+          <>
+            {!isLogged ? (
+              <Link
+                className="menu-bars"
+                style={{ textDecoration: "none" }}
+                to="/"
+              >
+                Paltu
+              </Link>
+            ) : (
+              <>
+                <Link to="#" className="menu-bars">
+                  <FaIcons.FaBars onClick={showSidebar} />
+                </Link>
+
+                <Box sx={{ flexGrow: 0.98 }} />
+                <Box sx={{display: { xs: "none", md: "flex" } }}>
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-haspopup="true"
+                    onClick={handleOpenUserMenu}
+                    color="inherit"
+                  >
+                    <Avatar />
+
+
+                  </IconButton>
+                </Box>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+
+                  <MenuItem>
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/"  onClick={logout}  style={{textDecoration:"none"}}>
+                      <Typography textAlign="center">
+                        Logout
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                </Menu>
+
+
+
+              </>
+            )}
+          </>
+        </div>
+      
+        <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+          <ul className="nav-menu-items" onClick={showSidebar}>
+            <li className="navbar-toggle">
+              <Link to="#" className="menu-bars">
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
+
+            {SidebarData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+    
+        </IconContext.Provider>
+
     </div>
   );
 }

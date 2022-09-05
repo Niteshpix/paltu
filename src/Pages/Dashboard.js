@@ -1,3 +1,14 @@
+import React from 'react'
+
+
+function Dashboard() {
+ 
+  return (
+    <div>
+   
+    </div>
+  )
+}
 // import React, { useEffect } from 'react'
 // import { useDispatch, useSelector } from "react-redux";
 // import { getCategories } from '../Redux/services/Apis';
@@ -24,4 +35,4 @@
 //   )
 // }
 
-// export default Dashboard
+ export default Dashboard

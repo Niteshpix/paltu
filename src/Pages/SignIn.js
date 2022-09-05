@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  Typography,
- 
-} from "@mui/material";
+import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,13 +22,10 @@ const SigninSchema = Yup.object().shape({
 function SignIn() {
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    height: "80vh",
     width: 550,
-    margin: "20px auto",
     borderRadius: "20px",
   };
-
- 
 
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
@@ -54,7 +44,9 @@ function SignIn() {
   const { email, password } = user;
   const handleSubmit = () => {
     dispatch(loginUser(user));
-    navigate("/forget-password");
+    navigate("/dashboard");
+
+   
   };
 
   const HandleChange = (e) => {
@@ -94,9 +86,9 @@ function SignIn() {
     // }
   };
 
-  const forgetpass=()=>{
-    navigate("/forget-password")
-  }
+  const forgetpass = () => {
+    navigate("/forget-password");
+  };
 
   return (
     <div>
@@ -164,7 +156,6 @@ function SignIn() {
                   {loginStatus === "pending" ? "Submitting..." : "Login"}
                 </Button>
 
-
                 <br></br>
                 <Button onClick={forgetpass}>Forgot password ?</Button>
 
@@ -178,7 +169,25 @@ function SignIn() {
             )}
           </Formik>
 
-         
+          {/* <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Forgot your passsword
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Enter the email associated with your account and we'll send an email to reset your password.
+              </Typography>
+             
+              <TextField sx={{ mt: 2 }} id="outlined-basic" label="Enter Your Email" variant="outlined" />
+              <Button style={{borderRadius:"20px",marginTop:"8px", marginRight:"200px"}} variant="contained">Send !!</Button>
+
+            </Box>
+          </Modal>*/}
         </Paper>
       </Grid>
     </div>
