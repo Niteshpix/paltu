@@ -1,31 +1,24 @@
-
-
-.welcome{
-    display: flex;
-    margin-top: 5vh;
-    justify-content: center;
-    padding: 10px;
+.welcome {
+  display: flex;
+  margin-top: 5vh;
+  justify-content: center;
+  padding: 10px;
 }
-.banner{
-    text-align: center;
+.banner {
+  text-align: center;
 }
-.styleform{
-    margin-top: 20px;
-
-    
-  }
-  .styleform input {
-    height: 35px;
-    width: 100%;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid rgb(220, 220, 220);
-    margin-bottom: 1rem;
-
-   
-  }
-  .dashboard{
-    border: 1px solid red;
-    height: 95vh;
-  }
-
+.styleform {
+  margin-top: 20px;
+}
+.styleform input {
+  height: 35px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(220, 220, 220);
+  margin-bottom: 1rem;
+}
+.dashboard {
+  border: 1px solid red;
+  height: 95vh;
+}
