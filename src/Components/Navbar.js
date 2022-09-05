@@ -133,6 +133,7 @@ function Navbar() {
         </nav>
     
         </IconContext.Provider>
+
     </div>
   );
 }

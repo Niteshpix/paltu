@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  Typography,
-  Modal,
-  Box,
-  TextField,
-} from "@mui/material";
+import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,28 +27,14 @@ function SignIn() {
     borderRadius: "20px",
   };
 
-  const style = {
-    position: "absolute",
-    top: "40%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    height:500,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    
-  };
-
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loginStatus } = useSelector((state) => state.auth);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -68,7 +45,8 @@ function SignIn() {
   const handleSubmit = () => {
     dispatch(loginUser(user));
     navigate("/dashboard");
-   
+
+    navigate("/forget-password");
   };
 
   const HandleChange = (e) => {
@@ -106,6 +84,10 @@ function SignIn() {
     // } else {
     //   setLogin(false);
     // }
+  };
+
+  const forgetpass = () => {
+    navigate("/forget-password");
   };
 
   return (
@@ -174,9 +156,8 @@ function SignIn() {
                   {loginStatus === "pending" ? "Submitting..." : "Login"}
                 </Button>
 
-
                 <br></br>
-                <Button onClick={handleOpen}>Forgot password ?</Button>
+                <Button onClick={forgetpass}>Forgot password ?</Button>
 
                 <Typography>
                   Do you have No account ?
@@ -188,7 +169,7 @@ function SignIn() {
             )}
           </Formik>
 
-          <Modal
+          {/* <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -206,7 +187,7 @@ function SignIn() {
               <Button style={{borderRadius:"20px",marginTop:"8px", marginRight:"200px"}} variant="contained">Send !!</Button>
 
             </Box>
-          </Modal>
+          </Modal>*/}
         </Paper>
       </Grid>
     </div>

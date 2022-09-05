@@ -7,6 +7,12 @@ import Product from "./Pages/Product";
 import Navbar from "./Components/Navbar";
 import Category from "./Pages/Category";
 
+// import Dashboard from './Pages/Dashboard';
+import "./App.css";
+import Layout from "./Layout/Layout";
+import UpdatePasswordForm from "./Pages/ForgetPassword/UpdatePasswordForm";
+
+
 function App() {
   return (
     <>
@@ -18,8 +24,15 @@ function App() {
         <Route path="/products" element={<Product />} />
         <Route path="/category" element={<Category />} />
       </Routes>
+      <UpdatePasswordForm/>
+    
+
+ <Layout/>
+      
     </>
   );
 }
+
+
 
 export default App;
