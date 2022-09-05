@@ -6,10 +6,10 @@ const Protected = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let login = localStorage.getItem("user");
+    let login = localStorage.getItem("token");
      
-    if(!login) {
-      navigate("/login");
+     if(!login) {
+      navigate("/");
     }
   }, [navigate]);
 

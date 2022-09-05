@@ -42,7 +42,9 @@ function SignUp() {
           <Grid align="center">
             <h2>SignUp !!<Avatar style={avatarStyle}></Avatar></h2>
             <ToastContainer>{toast(token?.message)}</ToastContainer>
-            <div style={{ color: "red" }}>{token?.message}</div>
+         
+            <div style={{ color: "red" }}>{token?.messages}</div>
+
           </Grid>
           <form className="styleform" onSubmit={handleSubmit}>
             <label className="form-label">Name</label>
@@ -78,7 +80,7 @@ function SignUp() {
             </Typography>
             <Typography>
               Do you have an account ?
-              <Link to={"/signin"}>
+              <Link to={"/"}>
                 <Button color="secondary">SignIn</Button>
               </Link>
             </Typography>

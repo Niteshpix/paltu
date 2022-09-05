@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { url } from "../../Config/axiosConfig";
+import { setHeaders, url } from "../../Config/axiosConfig";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -12,7 +12,6 @@ export const registerUser = createAsyncThunk(
         password: values.password,
       });
 
-    
       return token.data;
     } catch (error) {
       console.log(error.response.data);
@@ -30,7 +29,7 @@ export const loginUser = createAsyncThunk(
         password: values.password,
       });
 
-      localStorage.setItem("token", JSON.stringify(token.data));
+      localStorage.setItem("token", (token.data.token));
 
       return token.data;
     } catch (error) {
@@ -52,3 +51,40 @@ export const getCategories = createAsyncThunk(
     }
   }
 );
+
+//services
+export const getServices = createAsyncThunk(
+  "services/servicesFetch",
+  async () => {
+    try {
+      const response = await axios.get(`${url}/services`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
+export const getUser = createAsyncThunk("user/userFetch", async () => {
+  try {
+    const response = await axios.get(`${url}/user`, setHeaders());
+    
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});
+
+export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
+  try {
+    const response = await axios.get(`${url}/profile`, setHeaders());
+   
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});

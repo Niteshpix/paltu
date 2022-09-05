@@ -46,7 +46,7 @@ function SignIn() {
     dispatch(loginUser(user));
     navigate("/dashboard");
 
-   
+
   };
 
   const HandleChange = (e) => {
