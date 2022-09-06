@@ -14,6 +14,7 @@ export const store = configureStore({
     passwordReset:passwordReset,
     user:UserSlice,
     profile:profileSlice,
+    
    
   },
 })

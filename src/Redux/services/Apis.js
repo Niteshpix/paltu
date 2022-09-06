@@ -107,13 +107,14 @@ export const getServices = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(`${url}/services`);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error.response);
     }
   }
 );
+//get user
 
 export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
@@ -124,15 +125,32 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
     console.log(error.response);
   }
 });
-
-export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
+// editUser
+export const EditUser = createAsyncThunk("user/userFetch", async (user_id) => {
   try {
+<<<<<<< HEAD
     const response = await axios.get(`${url}/profile`, setHeaders());
 
     //console.log(response.data);
 
+=======
+    const response = await axios.put(`${url}/user/${user_id}`, setHeaders());
+>>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
     return response.data;
   } catch (error) {
     console.log(error.response);
   }
 });
+<<<<<<< HEAD
+=======
+
+export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
+  try {
+    const response = await axios.get(`${url}/profile`, setHeaders());
+    return response.data.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});
+
+>>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820

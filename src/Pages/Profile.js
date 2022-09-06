@@ -15,16 +15,25 @@
 //   color: theme.palette.text.secondary,
 // }));
 
+<<<<<<< HEAD
 // function Profile() {
 //   const { items: data, status } = useSelector((state) => state.profile);
 
 //   console.log(data);
 //   const dispatch = useDispatch();
+=======
+function Profile() {
+  const user = useSelector((state) => state.profile);
+
+  console.log(user,'================');
+  const dispatch = useDispatch();
+>>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
 
 //   useEffect(() => {
 //     dispatch(getProfile());
 //   }, [dispatch]);
 
+<<<<<<< HEAD
 //   return (
 //     <div className="sevices">
 //       <div className="header">
@@ -66,5 +75,27 @@
 //     </div>
 //   );
 // }
+=======
+  return (
+    <div className="sevices">
+      <div className="header">
+        <h2>User List</h2>
+        <Button
+          size="small"
+          variant="contained"
+          color="secondary"
+          startIcon={<AddIcon />}
+        >
+          New Data
+        </Button>
+      </div>
+      <div className="clist">
+        <h3>Select</h3>
+     
+      </div>
+    </div>
+  );
+}
+>>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
 
 // export default Profile;
