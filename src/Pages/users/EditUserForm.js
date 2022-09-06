@@ -9,20 +9,20 @@ import { EditUser, getProfile } from "../../Redux/services/Apis";
 function EditUserForm() {
   const params = useParams();
   const dispatch = useDispatch();
-   const { user } = useSelector((state) => state.profile);
-   console.log(user,'================');
+  const { user } = useSelector((state) => state.profile);
 
-  // const existingUser=data.filter(user=>user.id===params.id);
   const [editUser, setEditUser] = useState({
-    name: "",
+    name: user?.name,
     email: "",
     phone: "",
   });
 
-  console.log(editUser);
+
   const handleChange = (e) => {
-    setEditUser({ ...editUser, [e.target.name]: e.target.value });
+    setEditUser({ ...user, [e.target.name]: e.target.value });
   };
+  
+  // console.log(editUser,'editUser',user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ function EditUserForm() {
     if (params.id) {
       dispatch(
         EditUser({
-          _id: params.id,
+          id: params.id,
           name: editUser.name,
           email: editUser.email,
           phone: editUser.phone,
@@ -42,7 +42,7 @@ function EditUserForm() {
   };
 
   useEffect(() => {
-    const loadTask = async () => {
+    const loadUser = async () => {
       try {
         const response = await getProfile(params.id);
         setEditUser(response.data);
@@ -51,9 +51,8 @@ function EditUserForm() {
         console.error(error);
       }
     };
-    loadTask();
+    loadUser();
   }, [params.id]);
-  console.log(editUser,'editUser')
 
   return (
     <div className="Edit User">
@@ -72,10 +71,10 @@ function EditUserForm() {
                   placeholder=" Name"
                   onChange={handleChange}
                   name="name"
-                  value={editUser?.name?editUser?.name:''}
+                  value={editUser?.name}
                 />
               </Grid>
-
+              {/* 
               <Grid item sm={12}>
                 <Typography variant="caption">Email</Typography>
                 <TextField
@@ -83,7 +82,7 @@ function EditUserForm() {
                   placeholder="email"
                   onChange={handleChange}
                   email="email"
-                  // value={editUser.email}
+                   value={editUser?.email}
                 />
               </Grid>
               <Grid item sm={12}>
@@ -94,7 +93,7 @@ function EditUserForm() {
                   onChange={handleChange}
                   phone="phone"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Grid item sx={{ marginTop: "100px" }}></Grid>
             <Button

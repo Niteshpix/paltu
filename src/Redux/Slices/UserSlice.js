@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  EditUser, getUser } from "../services/Apis";
+import {  getUser } from "../services/Apis";
 
 const initialState = {
-  items: [],
+  user: {
+    _id: "",
+    name: "",
+    email: "",
+    photo: [],
+  },
   status: null,
   createStatus: null,
 };
@@ -16,23 +21,13 @@ const UserSlice = createSlice({
       state.status = "pending";
     },
     [getUser.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      state.user = action.payload;
       state.status = "success";
     },
     [getUser.rejected]: (state, action) => {
       state.status = "rejected";
     },
-    [EditUser.pending]: (state, action) => {
-        state.status = "pending";
-      },
-      [EditUser.fulfilled]: (state, action) => {
-        state.items = action.payload;
-        state.status = "success";
-      },
-      [EditUser.rejected]: (state, action) => {
-        state.status = "rejected";
-      },
-    
+   
   },
 });
 

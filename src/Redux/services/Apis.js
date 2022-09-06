@@ -99,8 +99,6 @@ export const editCategory = createAsyncThunk(
   }
 );
 
-
-
 //services
 export const getServices = createAsyncThunk(
   "services/servicesFetch",
@@ -126,23 +124,28 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
   }
 });
 // editUser
-export const EditUser = createAsyncThunk("user/userFetch", async (user_id) => {
+export const EditUser = createAsyncThunk("user/userFetch", async (id) => {
   try {
-<<<<<<< HEAD
-    const response = await axios.get(`${url}/profile`, setHeaders());
-
-    //console.log(response.data);
-
-=======
-    const response = await axios.put(`${url}/user/${user_id}`, setHeaders());
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
+    // const response = await axios.get(`${url}/profile`, setHeaders());
+    const response = await axios.put(`${url}/user/${id}`, setHeaders());
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error.response);
   }
 });
-<<<<<<< HEAD
-=======
+
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (cId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${url}/user/${cId}`, setHeaders());
+      return cId;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
@@ -153,4 +156,22 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   }
 });
 
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
+export const UpdateProfilePhoto = createAsyncThunk(
+  "user/profilephoto",
+  async (values) => {
+    try {
+      const response = await axios.post(
+        `${url}/user/profilePhotoChange`, 
+        {
+          photo: values.photo,
+        },
+        setHeaders()
+      );
+
+      console.log(response.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
