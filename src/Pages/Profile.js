@@ -16,9 +16,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Profile() {
-  const { items: data, status } = useSelector((state) => state.profile);
+  const user = useSelector((state) => state.profile);
 
-  console.log(data);
+  console.log(user,'================');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,28 +40,7 @@ function Profile() {
       </div>
       <div className="clist">
         <h3>Select</h3>
-        <Box sx={{ flexGrow: 1 }}>
-          {status === "success" ? (
-            <Grid container spacing={5}>
-              {/* {
-               data?. data.map((users) => (
-                  <Grid item xs={12}>
-                    <Item>
-                      <div key={users._id}>
-                        <h3>{users.name}</h3>
-
-                      </div>
-                    </Item>
-                  </Grid>
-                ))} */}
-                <h1>{data.data?.name}</h1>
-            </Grid>
-          ) : status === "pending" ? (
-            <p>Loading...</p>
-          ) : (
-            <p>Unexpected error occured...</p>
-          )}
-        </Box>
+     
       </div>
     </div>
   );

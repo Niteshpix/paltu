@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {  getProfile } from "../services/Apis";
 
 const initialState = {
-  items: [],
+  user:{
+    _id:"",
+    name:"",
+  },
   status: null,
   createStatus: null,
 };
@@ -16,7 +19,7 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [getProfile.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      state.user = action.payload;
       state.status = "success";
     },
     [getProfile.rejected]: (state, action) => {

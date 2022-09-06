@@ -46,7 +46,7 @@ function Services() {
               {data &&
                 data !== "" &&
                 data.data?.map((service) => (
-                  <Grid item xs={12}>
+                  <Grid item xs={12} >
                     <Item>
                       <div key={service._id}>
                         <h3>{service.title}</h3>

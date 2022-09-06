@@ -59,13 +59,14 @@ export const getServices = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(`${url}/services`);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error.response);
     }
   }
 );
+//get user
 
 export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
@@ -77,14 +78,20 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
     console.log(error.response);
   }
 });
+// editUser
+export const EditUser = createAsyncThunk("user/userFetch", async (user_id) => {
+  try {
+    const response = await axios.put(`${url}/user/${user_id}`, setHeaders());
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});
 
 export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
     const response = await axios.get(`${url}/profile`, setHeaders());
-   
-    console.log(response.data);
-
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error.response);
   }

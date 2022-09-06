@@ -5,17 +5,14 @@ import Dashboard from "../Pages/Dashboard";
 import SignUp from "../Pages/SignUp";
 import ResetPassword from "../Pages/ForgetPassword/Resetpassword";
 import Product from "../Pages/Product";
-
-import Category from "../Pages/Category";
 import Protected from "./Proteced";
 import Services from "../Pages/Services";
 import Profile from "../Pages/Profile";
-
-
-
-
-
 import FormCategory from "../Pages/category/FormCategory";
+
+import Category from "../Pages/category/Category";
+import EditUserForm from "../Pages/users/EditUserForm";
+import User from "../Pages/users/User";
 
 
 function Router() {
@@ -31,8 +28,9 @@ function Router() {
          <Route path="/category/create" element={<Protected Component={FormCategory} />} />
          <Route path="/services" element={<Protected Component={Services} />} />
        <Route exact path="/forget-password" element={<ResetPassword />} />
-       {/* <Route exact path="/user" element={<User/>}/> */}
-       <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/user" element={<User/>}/>
+          <Route exact path="/edituser/:id" element={<EditUserForm/>}/>
+         <Route exact path="/profile" element={<Profile />} />
        </Routes>
 
       

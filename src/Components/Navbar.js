@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData } from "../Components/SlidebarData";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -16,7 +16,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const showSidebar = () => setSidebar(!sidebar);
-
+  const navigate = useNavigate();
   useEffect(() => {
     checkStorage();
     return () => {};
@@ -44,14 +44,16 @@ function Navbar() {
   };
   const dispatch = useDispatch();
 
-  const { items: data, status } = useSelector((state) => state.profile);
-  console.log(data)
+  const { user} = useSelector((state) => state.profile);
+  
 
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
 
-
+  const handleEdit = (id) => {
+    navigate(`/edituser/${id}`);
+  };
   return (
     <div>
       <IconContext.Provider value={{ color: "#FFF" }}>
@@ -72,7 +74,7 @@ function Navbar() {
                 </Link>
 
                 <Box sx={{ flexGrow: 0.98 }} />
-                <Box sx={{display: { xs: "none", md: "flex" } }}>
+                <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <IconButton
                     size="large"
                     edge="end"
@@ -82,8 +84,6 @@ function Navbar() {
                     color="inherit"
                   >
                     <Avatar />
-
-
                   </IconButton>
                 </Box>
                 <Menu
@@ -102,26 +102,29 @@ function Navbar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-
                   <MenuItem>
-                 <Link to="/profile" style={{textDecoration:"none"}}><Typography textAlign="center">{data.data?.name}</Typography></Link>
+                    <Typography
+                      textAlign="center"
+                      onClick={() => handleEdit(user?._id)}
+                    >
+                      {user?.name}
+                    </Typography>
                   </MenuItem>
                   <MenuItem>
-                    <Link to="/"  onClick={logout}  style={{textDecoration:"none"}}>
-                      <Typography textAlign="center">
-                        Logout
-                      </Typography>
+                    <Link
+                      to="/"
+                      onClick={logout}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography textAlign="center">Logout</Typography>
                     </Link>
                   </MenuItem>
                 </Menu>
-
-
-
               </>
             )}
           </>
         </div>
-      
+
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
@@ -142,9 +145,7 @@ function Navbar() {
             })}
           </ul>
         </nav>
-    
-        </IconContext.Provider>
-
+      </IconContext.Provider>
     </div>
   );
 }
