@@ -4,14 +4,12 @@ import { loginUser, registerUser } from "../services/Apis";
 const initialState = {
   token: localStorage.getItem("token"),
   name: "",
-
   _id: "",
   registerStatus: "",
-
   registerError: "",
   loginStatus: "",
   loginError: "",
-  userLoaded: "",
+  userLoaded: false,
 };
 
 export const AuthSlice = createSlice({
@@ -25,12 +23,7 @@ export const AuthSlice = createSlice({
         const user = token;
         return {
           ...state,
-          token: "",
-          registerStatus: "",
-          registerError: "",
-          loginStatus: "",
-          loginError: "",
-          isAuthUser: "",
+          token,
           name: user.name,
           email: user.email,
           _id: user._id,
@@ -95,7 +88,6 @@ export const AuthSlice = createSlice({
           _id: user._id,
           isAdmin: user.isAdmin,
           loginStatus: "success",
-          isAuthUser: true,
         };
       } else return state;
     });

@@ -7,6 +7,8 @@ import "./index.css";
 import { IconContext } from "react-icons";
 import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../Redux/services/Apis";
 
 function Navbar() {
   const [isLogged, setisLogged] = useState(false);
@@ -40,6 +42,15 @@ function Navbar() {
     localStorage.removeItem("token");
     setisLogged(false);
   };
+  const dispatch = useDispatch();
+
+  const { items: data } = useSelector((state) => state.profile);
+  //console.log(data)
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
+
 
   return (
     <div>
@@ -93,7 +104,7 @@ function Navbar() {
                 >
 
                   <MenuItem>
-                    <Typography textAlign="center">Profile</Typography>
+                 <Link to="/profile" style={{textDecoration:"none"}}><Typography textAlign="center">{data?.data?.name}</Typography></Link>
                   </MenuItem>
                   <MenuItem>
                     <Link to="/"  onClick={logout}  style={{textDecoration:"none"}}>

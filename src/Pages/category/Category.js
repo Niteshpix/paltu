@@ -4,9 +4,8 @@ import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../Redux/services/Apis";
+import { deleteCategory, getCategories } from "../../Redux/services/Apis";
 import { IMAGE_URL } from "../../Config/axiosConfig";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function Category() {
   const { items: data, status } = useSelector((state) => state.category);
 
-  console.log(data);
+  //console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +32,10 @@ function Category() {
   const routeChange = () => {
     let path = `create`;
     navigate(path);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteCategory(id));
   };
 
   return (
@@ -60,8 +63,6 @@ function Category() {
           }}
           type="search"
           placeholder="Search Category"
-          // value={searchTerm}
-          // onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
@@ -97,8 +98,9 @@ function Category() {
                         <h3>{category.title}</h3>
                         <div className="icn">
                           <EditIcon />
-                          <DeleteForeverIcon />
-                          <MoreVertIcon />
+                          <div onClick={()=>handleDelete(category._id)}  className="del">
+                          <DeleteForeverIcon/>
+                          </div>
                         </div>
                       </div>
                     </Item>

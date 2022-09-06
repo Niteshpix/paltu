@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import "./index.css";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { getServices } from "../Redux/services/Apis";
-import { IMAGE_URL } from "../Config/axiosConfig";
+import {  getUser } from "../Redux/services/Apis";
+// import { IMAGE_URL } from "../Config/axiosConfig";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,20 +15,20 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Services() {
-  const { items: data, status } = useSelector((state) => state.services);
+function User() {
+  const { items: data, status } = useSelector((state) => state.user);
 
   console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getServices());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
     <div className="sevices">
       <div className="header">
-        <h2>Select Services</h2>
+        <h2>User List</h2>
         <Button
           size="small"
           variant="contained"
@@ -45,20 +45,20 @@ function Services() {
             <Grid container spacing={5}>
               {data &&
                 data !== "" &&
-                data.data?.map((service) => (
+                data.data?.map((users) => (
                   <Grid item xs={12}>
                     <Item>
-                      <div key={service._id}>
-                        <h3>{service.title}</h3>
-
-                        <img  src={`${IMAGE_URL}${service.image}` }
+                      <div key={users._id}>
+                        <h3>{users.name}</h3>
+{/* 
+                         <img  src={`${IMAGE_URL}${service.image}` } 
                           alt=""
                           style={{
                             width: "30%",
                             border: "2px solid red",
                             height: "10vh",
                           }}
-                        />
+                        /> */}
                       </div>
                     </Item>
                   </Grid>
@@ -75,4 +75,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default User;

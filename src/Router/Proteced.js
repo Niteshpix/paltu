@@ -7,9 +7,8 @@ const Protected = (props) => {
 
   useEffect(() => {
     let login = localStorage.getItem("token");
-     
-    if(!login) {
-      navigate("/login");
+     if(!login) {
+      navigate("/");
     }
   }, [navigate]);
 

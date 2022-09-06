@@ -7,19 +7,20 @@ import { registerUser } from "../Redux/services/Apis";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 
-
 function SignUp() {
   const paperStyle = {
     padding: 20,
     height: "70vh",
     width: 550,
     margin: "20px auto",
-    borderRadius:"20px" 
+    borderRadius: "20px",
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
 
   const dispatch = useDispatch();
-  const { registerStatus, registerError, token } = useSelector((state) => state.auth);
+  const { registerStatus, registerError, token } = useSelector(
+    (state) => state.auth
+  );
   //console.log(auth)
 
   const [user, setUser] = useState({
@@ -28,20 +29,21 @@ function SignUp() {
     password: "",
   });
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(user));
   };
-
 
   return (
     <div>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">
-            <h2>SignUp !!<Avatar style={avatarStyle}></Avatar></h2>
+            <h2>
+              SignUp !!<Avatar style={avatarStyle}></Avatar>
+            </h2>
             <ToastContainer>{toast(token?.message)}</ToastContainer>
+
             <div style={{ color: "red" }}>{token?.messages}</div>
           </Grid>
           <form className="styleform" onSubmit={handleSubmit}>

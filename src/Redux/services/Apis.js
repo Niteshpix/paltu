@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { url } from "../../Config/axiosConfig";
+import { setHeaders, url } from "../../Config/axiosConfig";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
         password: values.password,
       });
 
-      localStorage.setItem("token", JSON.stringify(token.data));
+      localStorage.setItem("token", token.data.token);
 
       return token.data;
     } catch (error) {
@@ -44,7 +44,6 @@ export const getCategories = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(`${url}/categories`);
-
       return response.data;
     } catch (error) {
       console.log(error.response);
@@ -52,6 +51,88 @@ export const getCategories = createAsyncThunk(
   }
 );
 
+export const createCategory = createAsyncThunk(
+  "category/categoryGet",
+  async (values) => {
+    try {
+      const response = await axios.post(
+        `${url}/categories`,
+        {
+          title: values.title,
+          photo: values.photo,
+        },
+        setHeaders()
+      );
+
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "category/deleteCategory",
+  async (cId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${url}/categories/${cId}`, setHeaders());
+      return cId;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const editCategory = createAsyncThunk(
+  "category/editCategory",
+  async (cat, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`${url}/categories/${cat._id}`, {
+        title: cat.title,
+        photo: cat.photo,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 
 
+//services
+export const getServices = createAsyncThunk(
+  "services/servicesFetch",
+  async () => {
+    try {
+      const response = await axios.get(`${url}/services`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
+export const getUser = createAsyncThunk("user/userFetch", async () => {
+  try {
+    const response = await axios.get(`${url}/user`, setHeaders());
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});
+
+export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
+  try {
+    const response = await axios.get(`${url}/profile`, setHeaders());
+
+    //console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+});
