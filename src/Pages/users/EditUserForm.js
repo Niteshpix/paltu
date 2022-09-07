@@ -2,38 +2,57 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useEffect, useState } from "react";
 import "../index.css";
-import { Link, useParams,} from "react-router-dom";
+import { Link, useNavigate, useParams,} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { EditUser, getProfile } from "../../Redux/services/Apis";
-import { useDispatch } from "react-redux";
 
 function EditUserForm() {
-  const dispatch =useDispatch()
-  const {id}= useParams();
-  const [editUser,setEditUser] = useState({
-    name: "",
-    email: "",
+  const user= useSelector((state) => state.profile);
+  console.log(user)
+  const [editUser, setEditUser] = useState({
+    name: user?.name,
+    email: user?.email,
   });
-  console.log(editUser, "------------")
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+console.log(editUser, "---------------------")
 
-  const {email,name}=editUser
-  const onInputChange = (e) => {
+  const params = useParams();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (params.id) {
+      dispatch(
+        EditUser({
+          _id: params.id,
+          name: editUser.name,
+          email: editUser.email,
+        })
+      );
+    } else {
+      // dispatch(createTask(task));
+    }
+  };
+
+  useEffect(() => {
+    const loadTask = async () => {
+      try {
+        const response = await getProfile(params.id);
+        setEditUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadTask();
+  }, [params.id]);
+
+  const handleChange = (e) => {
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value,
     });
   };
-
-  
-  const updateContent = () => {
-    dispatch(EditUser({ id: editUser.id, data: editUser }))
-      .unwrap()
-      .then((response) => {
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
- 
 
   return (
     <div className="box">
@@ -42,7 +61,7 @@ function EditUserForm() {
       </Link>
       <div className="header">
         <Card style={{ padding: "20px", width: "100%", height: "45  vh" }}>
-          <form onSubmit={updateContent}>
+          <form onSubmit={handleSubmit}>
             <h1>Edit User</h1>
             <Grid container Spacing={5}>
               <Grid item sm={12}>
@@ -51,19 +70,31 @@ function EditUserForm() {
                   fullWidth
                   placeholder=" Name"
                   name="name"
-                  value={name}
-                  onChange={onInputChange}
+                  value={editUser?.name}
+                  onChange={handleChange}
+                 
                 />
                 <Typography variant="caption">Email</Typography>
                 <TextField
                   fullWidth
                   placeholder=" Email"
                   name="email"
-                  value={email}
-                  onChange={onInputChange}
+                  value={editUser?.email}
+                  onChange={handleChange}
+                  
                 />
-              </Grid>     
-  
+              </Grid>
+              
+              {/* <Grid item sm={12}>
+                <Typography variant="caption">Phone</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="phone"
+                  onChange={handleChange}
+                  phone="phone"
+                  value={user?.phone}
+                />
+              </Grid>  */}
             </Grid>
             <Grid item sx={{ marginTop: "100px" }}></Grid>
             <Button
@@ -71,6 +102,7 @@ function EditUserForm() {
               color="secondary"
               type="submit"
               variant="contained"
+              
             >
               Submit
             </Button>

@@ -16,8 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function User() {
-  const { items: data, status } = useSelector((state) => state.userData);
-  console.log(data);
+  const { data, status } = useSelector((state) => state.userData);
+console.log(data)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,8 +58,8 @@ function User() {
                   </Item>
                 </div>
               )}
-              {data &&
-                data !== "" &&
+              {
+            
                 data?.map((user) => (
                   <Grid item xs={12} key={user._id}>
                     <Item>
