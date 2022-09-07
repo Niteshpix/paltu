@@ -18,7 +18,6 @@ const Item = styled(Paper)(({ theme }) => ({
 function Services() {
   const { items: data, status } = useSelector((state) => state.services);
 
-  console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,12 +45,13 @@ function Services() {
               {data &&
                 data !== "" &&
                 data.data?.map((service) => (
-                  <Grid item xs={12} >
+                  <Grid item xs={12}>
                     <Item>
                       <div key={service._id}>
                         <h3>{service.title}</h3>
 
-                        <img  src={`${IMAGE_URL}${service.image}` }
+                        <img
+                          src={`${IMAGE_URL}${service.image}`}
                           alt=""
                           style={{
                             width: "30%",
