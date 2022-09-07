@@ -6,8 +6,8 @@ import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { IMAGE_URL } from "../../Config/axiosConfig";
 import { getUser } from "../../Redux/services/Apis";
 
@@ -90,14 +90,14 @@ function User() {
                         }}
                       >
                         <img
-                          src={`${IMAGE_URL}${users.image}`}
+                          src={`${IMAGE_URL}${users.photo}`}
                           style={{ height: 70, width: 80 }}
                           alt=""
                         />
                         <h3>{users.name}</h3>
                         <h3>{users.phone}</h3>
                         <div className="icn">
-                        <Link to="/edituser/:id">  <EditIcon /></Link>
+                        
                           <DeleteForeverIcon />
                           <MoreVertIcon />
                         </div>

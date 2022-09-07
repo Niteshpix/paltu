@@ -145,9 +145,9 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
 
 
 // editUser
-export const EditUser = createAsyncThunk("user/userFetch", async (user_id) => {
+export const EditUser = createAsyncThunk("user/userFetch", async (id) => {
   try {
-    const response = await axios.put(`${url}/user/${user_id}`, setHeaders());
+    const response = await axios.put(`${url}/user/${id}`, setHeaders());
     return response.data.data;
   } catch (error) {
     console.log(error.response);

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SidebarData } from "../Components/SlidebarData";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import "./index.css";
 import { IconContext } from "react-icons";
-import { Avatar, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/services/Apis";
+
+import { IMAGE_URL } from "../Config/axiosConfig";
 
 function Navbar() {
   const [isLogged, setisLogged] = useState(false);
@@ -16,7 +18,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const showSidebar = () => setSidebar(!sidebar);
-  const navigate = useNavigate();
+
   useEffect(() => {
     checkStorage();
     return () => {};
@@ -44,16 +46,12 @@ function Navbar() {
   };
   const dispatch = useDispatch();
 
-  const { user} = useSelector((state) => state.profile);
-  
+  const { user } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
 
-  const handleEdit = (id) => {
-    navigate(`/edituser/${id}`);
-  };
   return (
     <div>
       <IconContext.Provider value={{ color: "#FFF" }}>
@@ -83,7 +81,19 @@ function Navbar() {
                     onClick={handleOpenUserMenu}
                     color="inherit"
                   >
-                    <Avatar />
+                    <div
+                      style={{
+                        border: "2px solid white",
+                        borderRadius: "50%",
+                        padding: "0.5rem",
+                      }}
+                    >
+                      <img
+                        src={`${IMAGE_URL}${user?.photo}`}
+                        alt="hii"
+                        style={{ width: "40px" }}
+                      />
+                    </div>
                   </IconButton>
                 </Box>
                 <Menu
@@ -103,13 +113,11 @@ function Navbar() {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem>
-                    <Typography
-                      textAlign="center"
-                      onClick={() => handleEdit(user?._id)}
-                    >
-                      {user?.name}
-                    </Typography>
+                    <Link to="/profile" style={{ textDecoration: "none" }}>
+                      <Typography textAlign="center">{user?.name}</Typography>
+                    </Link>
                   </MenuItem>
+
                   <MenuItem>
                     <Link
                       to="/"

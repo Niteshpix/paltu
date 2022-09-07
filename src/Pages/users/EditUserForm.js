@@ -1,23 +1,57 @@
 import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../index.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { EditUser, getProfile } from "../../Redux/services/Apis";
 
 function EditUserForm() {
+  const params = useParams();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.profile);
-  console.log(user, "================");
 
+  const [editUser, setEditUser] = useState({
+    name: user?.name,
+    email: "",
+    phone: "",
+  });
 
-  const [editUser, setEditUser] = useState();
-  console.log(editUser);
-
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setEditUser({ ...editUser, [name]: value });
+  const handleChange = (e) => {
+    setEditUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  // console.log(editUser,'editUser',user);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (params.id) {
+      dispatch(
+        EditUser({
+          id: params.id,
+          name: editUser.name,
+          email: editUser.email,
+          phone: editUser.phone,
+        })
+      );
+    } else {
+      console.log("error");
+    }
+  };
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const response = await getProfile(params.id);
+        setEditUser(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadUser();
+  }, [params.id]);
 
   return (
     <div className="Edit User">
@@ -35,10 +69,29 @@ function EditUserForm() {
                   fullWidth
                   placeholder=" Name"
                   name="name"
-                  value={''}
-                  onChange={handleChange}
+                  value={editUser?.name}
                 />
               </Grid>
+              {/* 
+              <Grid item sm={12}>
+                <Typography variant="caption">Email</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="email"
+                  onChange={handleChange}
+                  email="email"
+                   value={editUser?.email}
+                />
+              </Grid>
+              <Grid item sm={12}>
+                <Typography variant="caption">Phone</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="phone"
+                  onChange={handleChange}
+                  phone="phone"
+                />
+              </Grid> */}
             </Grid>
             <Grid item sx={{ marginTop: "100px" }}></Grid>
             <Button

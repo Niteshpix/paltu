@@ -9,10 +9,11 @@ import Protected from "./Proteced";
 import Profile from "../Pages/Profile";
 import FormCategory from "../Pages/category/FormCategory";
 import Category from "../Pages/category/Category";
-import EditUserForm from "../Pages/users/EditUserForm";
 import User from "../Pages/users/User";
+import ProfilePhotoChange from "../Pages/users/ProfilePhotoChange";
+import EditUserForm from "../Pages/users/EditUserForm";
 import Services from "../Pages/Service/Services";
-import FormService from "../Pages/Service/FormService";
+
 
 function Router() {
   return (
@@ -22,15 +23,23 @@ function Router() {
         <Route exact path="/dashboard" element={<Protected Component={Dashboard} />}/>
         <Route excat path="/" element={<Home />} />
         <Route path="/products" element={<Product />} />
-        <Route path="/category" element={<Protected Component={Category} />} />
-        <Route path="/category/create" element={<Protected Component={FormCategory} />}/>
-        <Route path="/services" element={<Protected Component={Services} />} />
-        <Route path="/services/create" element={<Protected Component={FormService} />}/>
-        <Route exact path="/forget-password" element={<ResetPassword />} />
-        <Route exact path="/user" element={<User />} />
-        <Route exact path="/edituser/:id" element={<EditUserForm />} />
-        <Route exact path="" element={<Profile />} />
-      </Routes>
+         <Route path="/category" element={<Protected Component={Category} />} />
+         <Route path="/category/create" element={<Protected Component={FormCategory} />} />
+         <Route path="/services" element={<Protected Component={Services} />} />
+       <Route exact path="/forget-password" element={<ResetPassword />} />
+
+       {/* <Route exact path="/user" element={<User/>}/> */}
+
+          <Route exact path="/user" element={<User/>}/>
+          <Route exact path="profile/edituser/:id" element={<EditUserForm/>}/>
+         <Route exact path="/profile" element={<Profile />} />
+         <Route exact path="/photochnage" element={<ProfilePhotoChange />} />
+
+
+       </Routes>
+
+      
+
     </div>
   );
 }

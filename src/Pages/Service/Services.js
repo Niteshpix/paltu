@@ -47,7 +47,6 @@ function Services() {
           color="secondary"
           startIcon={<AddIcon />}
           onClick={routeChange}
-
         >
           New Data
         </Button>
@@ -77,7 +76,9 @@ function Services() {
                         <h3>{service.title}</h3>
                         <div className="icn">
                           <EditIcon />
-                          <DeleteForeverIcon    onClick={() => handleDelete(service._id)}/>
+                          <DeleteForeverIcon
+                            onClick={() => handleDelete(service._id)}
+                          />
                         </div>
                       </div>
                     </Item>
