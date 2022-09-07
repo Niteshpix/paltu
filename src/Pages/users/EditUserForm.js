@@ -9,13 +9,16 @@ import { EditUser, getProfile } from "../../Redux/services/Apis";
 function EditUserForm() {
   const params = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.profile);
-
+  const user  = useSelector((state) => state.profile);
+  console.log(user)
+console.log(user?.user.name)
   const [editUser, setEditUser] = useState({
-    name: user?.name,
-    email: "",
-    phone: "",
+    name: user?.user.name,
+    email: user?.user.email,
+  
   });
+  const {name, email} = user?.user
+  console.log(editUser, "------------")
 
 
   const handleChange = (e) => {
@@ -26,27 +29,27 @@ function EditUserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (params.id) {
       dispatch(
         EditUser({
           id: params.id,
-          name: editUser.name,
-          email: editUser.email,
-          phone: editUser.phone,
+          name: editUser?.name,
+          email: editUser?.email,
+          phone: editUser?.phone,
         })
       );
     } else {
       console.log("error");
     }
   };
+  
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         const response = await getProfile(params.id);
+        console.log(response.data)
         setEditUser(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -74,7 +77,7 @@ function EditUserForm() {
                   value={editUser?.name}
                 />
               </Grid>
-              {/* 
+              
               <Grid item sm={12}>
                 <Typography variant="caption">Email</Typography>
                 <TextField
@@ -85,15 +88,16 @@ function EditUserForm() {
                    value={editUser?.email}
                 />
               </Grid>
-              <Grid item sm={12}>
+              {/* <Grid item sm={12}>
                 <Typography variant="caption">Phone</Typography>
                 <TextField
                   fullWidth
                   placeholder="phone"
                   onChange={handleChange}
                   phone="phone"
+                  value={user?.phone}
                 />
-              </Grid> */}
+              </Grid>  */}
             </Grid>
             <Grid item sx={{ marginTop: "100px" }}></Grid>
             <Button

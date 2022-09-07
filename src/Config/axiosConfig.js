@@ -9,7 +9,7 @@ export const setHeaders = () => {
   const headers = {
     headers: {
       "token": localStorage.getItem("token"),
-    },
+      },
   };
 
   return headers;

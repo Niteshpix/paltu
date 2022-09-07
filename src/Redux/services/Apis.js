@@ -118,22 +118,27 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
     const response = await axios.get(`${url}/user`, setHeaders());
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error.response);
   }
 });
 // editUser
-export const EditUser = createAsyncThunk("user/userFetch", async (id) => {
-  try {
-    // const response = await axios.get(`${url}/profile`, setHeaders());
-    const response = await axios.put(`${url}/user/${id}`, setHeaders());
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error.response);
+export const EditUser = createAsyncThunk(
+  "user/userEdit",
+  async (value, { rejectWithValue },_id) => {
+    try {
+      const response = await axios.put(`${url}/user/${_id}`, {
+         _id:value.id,
+        name: value.name,
+        email: value.email,
+      },setHeaders());
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
   }
-});
+);
 
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
@@ -161,7 +166,7 @@ export const UpdateProfilePhoto = createAsyncThunk(
   async (values) => {
     try {
       const response = await axios.post(
-        `${url}/user/profilePhotoChange`, 
+        `${url}/user/profilePhotoChange`,
         {
           photo: values.photo,
         },

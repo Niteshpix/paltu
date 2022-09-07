@@ -12,6 +12,7 @@ const initialState = {
     name: "",
     email: "",
     photo: "",
+    data:[]
   },
   status: null,
   createStatus: null,
@@ -36,6 +37,7 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [EditUser.fulfilled]: (state, action) => {
+      
       state.user = action.payload;
       state.status = "success";
     },
@@ -69,6 +71,8 @@ const profileSlice = createSlice({
     [UpdateProfilePhoto.rejected]: (state, action) => {
       state.status = "rejected";
     },
+   
+    
   },
 });
 

@@ -9,7 +9,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import { useNavigate } from "react-router-dom";
 import { IMAGE_URL } from "../../Config/axiosConfig";
-import { getUser } from "../../Redux/services/Apis";
+import { deleteUser, getUser } from "../../Redux/services/Apis";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,31 +20,28 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function User() {
-  const { items: data, status } = useSelector((state) => state.user);
-
-
+  const { items: data, status } = useSelector((state) => state.userData);
+console.log(data)
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
 
-  let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `create`;
-    navigate(path);
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id));
   };
 
+
   return (
-    <div className="User">
+    <div className="category">
       <div className="header">
-        <h2>USER LIST</h2>
+        <h2>User List</h2>
         <Button
           size="small"
           variant="contained"
           color="secondary"
           startIcon={<AddIcon />}
-          onClick={routeChange}
         >
           New Data
         </Button>
@@ -60,8 +57,6 @@ function User() {
           }}
           type="search"
           placeholder="Search User"
-          // value={searchTerm}
-          // onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
@@ -70,7 +65,7 @@ function User() {
         <Box sx={{ flexGrow: 1 }}>
           {status === "success" ? (
             <Grid container spacing={5}>
-              {data.data?.length === 0 && (
+              {data?.length === 0 && (
                 <div>
                   <Item colSpan={2} align="center">
                     No Data
@@ -79,8 +74,8 @@ function User() {
               )}
               {data &&
                 data !== "" &&
-                data.data?.map((users) => (
-                  <Grid item xs={12} key={users._id}>
+                data?.map((user) => (
+                  <Grid item xs={12} key={user._id}>
                     <Item>
                       <div
                         style={{
@@ -90,16 +85,19 @@ function User() {
                         }}
                       >
                         <img
-                          src={`${IMAGE_URL}${users.photo}`}
+                          src={`${IMAGE_URL}${user.image}`}
                           style={{ height: 70, width: 80 }}
                           alt=""
                         />
-                        <h3>{users.name}</h3>
-                        <h3>{users.phone}</h3>
+                        <h3>{user.name}</h3>
+                        <h3>{user.email}</h3>
+                       
                         <div className="icn">
-                        
-                          <DeleteForeverIcon />
-                          <MoreVertIcon />
+                          <div className="del">
+                          <div onClick={()=>handleDelete(user._id)}  className="del">
+                          <DeleteForeverIcon/>
+                          </div>
+                          </div>
                         </div>
                       </div>
                     </Item>
