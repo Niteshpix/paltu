@@ -1,32 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  getUser } from "../services/Apis";
+import {
+
+  getUser,
+} from "../services/Apis";
 
 const initialState = {
-  user: {
-    _id: "",
-    name: "",
-    email: "",
-    photo: [],
-  },
+  items: [],
   status: null,
   createStatus: null,
 };
 
 const UserSlice = createSlice({
-  name: "user",
+  name: "userData",
   initialState,
-  reducers: {},
+  reducers: {
+   
+  },
   extraReducers: {
+    //get
     [getUser.pending]: (state, action) => {
       state.status = "pending";
     },
     [getUser.fulfilled]: (state, action) => {
-      state.user = action.payload;
+    
+      state.items = action.payload;
       state.status = "success";
     },
+
     [getUser.rejected]: (state, action) => {
       state.status = "rejected";
     },
+    
+
    
   },
 });

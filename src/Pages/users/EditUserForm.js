@@ -1,19 +1,16 @@
 import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../index.css";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {  getProfile } from "../../Redux/services/Apis";
+import { Link,} from "react-router-dom";
 
 function EditUserForm() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
   
   const [editUser] = useState({
     name: "",
     email: "",
   });
+  console.log(editUser, "------------")
 
   //console.log(editUser);
   // const onInputChange = (e) => {
@@ -23,9 +20,9 @@ function EditUserForm() {
   //   });
   // };
 
-  useEffect(() => {
-    dispatch(getProfile({id}));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   dispatch(getProfile({id}));
+  // }, [dispatch, id]);
 
 
   // const onInputChange = (event) => {
@@ -84,26 +81,26 @@ function EditUserForm() {
                   value={editUser.email}
                 />
               </Grid>
-              {/* 
+              
               <Grid item sm={12}>
                 <Typography variant="caption">Email</Typography>
                 <TextField
                   fullWidth
                   placeholder="email"
-                  onChange={handleChange}
                   email="email"
                    value={editUser?.email}
                 />
               </Grid>
-              <Grid item sm={12}>
+              {/* <Grid item sm={12}>
                 <Typography variant="caption">Phone</Typography>
                 <TextField
                   fullWidth
                   placeholder="phone"
                   onChange={handleChange}
                   phone="phone"
+                  value={user?.phone}
                 />
-              </Grid> */}
+              </Grid>  */}
             </Grid>
             <Grid item sx={{ marginTop: "100px" }}></Grid>
             <Button

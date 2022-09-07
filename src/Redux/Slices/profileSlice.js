@@ -12,6 +12,7 @@ const initialState = {
     name: "",
     email: "",
     photo: "",
+    data:[]
   },
   status: null,
   createStatus: null,
@@ -72,6 +73,8 @@ const profileSlice = createSlice({
     [UpdateProfilePhoto.rejected]: (state, action) => {
       state.status = "rejected";
     },
+   
+    
   },
 });
 
