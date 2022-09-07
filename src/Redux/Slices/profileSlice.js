@@ -39,9 +39,14 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [EditUser.fulfilled]: (state, action) => {
-      let data =state.user = action.payload;
-      console.log(data)
       state.status = "success";
+      const { id, item } = action.payload
+      if (!state.user[id]) {
+        state.user[id] = []
+      }
+      state.user[id].push(item)
+  
+
     },
     [EditUser.rejected]: (state, action) => {
       state.status = "rejected";
