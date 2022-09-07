@@ -8,19 +8,19 @@ import { EditUser, getProfile } from "../../Redux/services/Apis";
 
 function EditUserForm() {
   const user= useSelector((state) => state.profile);
-  console.log(user)
+
   const [editUser, setEditUser] = useState({
     name: user?.name,
     email: user?.email,
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-console.log(editUser, "---------------------")
 
   const params = useParams();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(editUser)
 
     if (params.id) {
       dispatch(
@@ -31,7 +31,7 @@ console.log(editUser, "---------------------")
         })
       );
     } else {
-      // dispatch(createTask(task));
+      
     }
   };
 
@@ -48,6 +48,7 @@ console.log(editUser, "---------------------")
   }, [params.id]);
 
   const handleChange = (e) => {
+    console.log(e.target.value,e.target.name)
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value,
