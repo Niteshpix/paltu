@@ -17,9 +17,7 @@ const initialState = {
 const CategorySlice = createSlice({
   name: "category",
   initialState,
-  reducers: {
-   
-  },
+  reducers: {},
   extraReducers: {
     //get
     [getCategories.pending]: (state, action) => {
@@ -32,7 +30,6 @@ const CategorySlice = createSlice({
     [getCategories.rejected]: (state, action) => {
       state.status = "rejected";
     },
-    
 
     //create category
     [createCategory.pending]: (state, action) => {
@@ -51,9 +48,7 @@ const CategorySlice = createSlice({
       state.status = "pending";
     },
     [deleteCategory.fulfilled]: (state, action) => {
-      let index = state.data.findIndex((dataId) => dataId.id === action.payload.id);
-      console.log(action.payload.id)
-      state.data.splice(index, 1);
+      state.data = state.data.filter((item) => item._id !== action.payload);
       state.status = "success";
     },
     [deleteCategory.rejected]: (state, action) => {

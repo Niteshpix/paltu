@@ -17,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function User() {
-  const { items: data, status } = useSelector((state) => state.userData);
+  const { data, status } = useSelector((state) => state.userData);
 console.log(data)
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ console.log(data)
 
 
   return (
-    <div className="category">
+    <div className="box">
       <div className="header">
         <h2>User List</h2>
         <Button
@@ -69,8 +69,8 @@ console.log(data)
                   </Item>
                 </div>
               )}
-              {data &&
-                data !== "" &&
+              {
+            
                 data?.map((user) => (
                   <Grid item xs={12} key={user._id}>
                     <Item>

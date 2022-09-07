@@ -153,14 +153,14 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
 
 // editUser
 export const EditUser = createAsyncThunk(
-  "user/userEdit",
-  async (value, { rejectWithValue },_id) => {
+  "profile/editProfile",
+  async ({value, id}, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${url}/user/${_id}`, {
-         _id:value.id,
-        name: value.name,
+      const response = await axios.put(`${url}/user/${id}`,id, {
+       name: value.name,
         email: value.email,
       },setHeaders());
+      console.log(response.data.data,"----------------")
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -170,10 +170,10 @@ export const EditUser = createAsyncThunk(
 
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
-  async (cId, { rejectWithValue }) => {
+  async (uId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${url}/user/${cId}`, setHeaders());
-      return cId;
+      await axios.delete(`${url}/user/${uId}`, setHeaders());
+      return uId;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
