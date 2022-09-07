@@ -2,18 +2,19 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useState } from "react";
 import "../index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {  createServices } from "../../Redux/services/Apis";
 
 function FormService() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [services, setSevices] = useState({
     title: "",
     photo: "",
+    titleColor:"",
+    description:""
   });
-
-  console.log(services);
 
   const HandleChange = (e) => {
     setSevices({
@@ -22,11 +23,11 @@ function FormService() {
     });
   };
 
-  const { title, photo } = services;
+  const { title, photo, description, titleColor } = services;
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createServices(services));
-    alert("Services Added");
+    navigate("/services");
   };
 
   return (
@@ -35,7 +36,7 @@ function FormService() {
         <ReplyAllIcon />
       </Link>
       <div className="header">
-        <Card style={{ padding: "20px", width: "100%", height: "30vh" }}>
+        <Card style={{ padding: "20px", width: "100%", height: "60vh" }}>
           <form onSubmit={handleSubmit} onChange={HandleChange}>
             <h1>Add Service</h1>
             <Grid>
@@ -46,6 +47,20 @@ function FormService() {
                   placeholder="Service"
                   name="title"
                   value={title}
+                />
+                <Typography variant="caption">Description</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="Description"
+                  name="description"
+                  value={description}
+                />
+                <Typography variant="caption">Title Color</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="color"
+                  name="titleColor"
+                  value={titleColor}
                 />
               </Grid>
             </Grid>

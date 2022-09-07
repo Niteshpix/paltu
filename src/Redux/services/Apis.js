@@ -39,7 +39,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-
 //category
 export const getCategories = createAsyncThunk(
   "category/categoryFetch",
@@ -108,10 +107,13 @@ export const createServices = createAsyncThunk(
         {
           title: values.title,
           photo: values.photo,
+          titleColor: values.titleColor,
+          description:values.description
+
         },
         setHeaders()
       );
-      console.log(response.data);
+      //console.log(response.data);
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -131,23 +133,27 @@ export const deleteService = createAsyncThunk(
   }
 );
 
-
 //get user
 export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
     const response = await axios.get(`${url}/user`, setHeaders());
-
     return response.data.data;
   } catch (error) {
     console.log(error.response);
   }
 });
 
-
 // editUser
-export const EditUser = createAsyncThunk("user/userFetch", async (id) => {
+export const EditUser = createAsyncThunk("profile/profileEdit",
+ async ({id, values}) => {
   try {
-    const response = await axios.put(`${url}/user/${id}`, setHeaders());
+    const response = await axios.put(`${url}/user/${id}`,
+    {
+      name: values.name,
+      email: values.email,
+    },
+    setHeaders());
+    console.log(response.data.data)
     return response.data.data;
   } catch (error) {
     console.log(error.response);
@@ -162,3 +168,35 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
     console.log(error.response);
   }
 });
+
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (cId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${url}/user/${cId}`, setHeaders());
+      return cId;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const UpdateProfilePhoto = createAsyncThunk(
+  "user/profilephoto",
+  async (values) => {
+    try {
+      const response = await axios.post(
+        `${url}/user/profilePhotoChange`,
+        {
+          photo: values.photo,
+        },
+        setHeaders()
+      );
+
+      console.log(response.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);

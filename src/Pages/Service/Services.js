@@ -40,7 +40,7 @@ function Services() {
   return (
     <div className="box">
       <div className="header">
-        <h2>Select Services</h2>
+        <h2>Services List</h2>
         <Button
           size="small"
           variant="contained"
@@ -52,7 +52,7 @@ function Services() {
         </Button>
       </div>
       <div className="clist">
-        <h3>Select</h3>
+        <h3>Services</h3>
         <Box sx={{ flexGrow: 1 }}>
           {status === "success" ? (
             <Grid container spacing={5}>
@@ -73,7 +73,10 @@ function Services() {
                           style={{ height: 70, width: 80 }}
                           alt=""
                         />
+                        <div className="title">
                         <h3>{service.title}</h3>
+                        <p>{service.description}</p>
+                        </div>
                         <div className="icn">
                           <EditIcon />
                           <DeleteForeverIcon

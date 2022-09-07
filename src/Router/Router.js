@@ -13,6 +13,7 @@ import User from "../Pages/users/User";
 import ProfilePhotoChange from "../Pages/users/ProfilePhotoChange";
 import EditUserForm from "../Pages/users/EditUserForm";
 import Services from "../Pages/Service/Services";
+import FormService from "../Pages/Service/FormService";
 
 
 function Router() {
@@ -26,6 +27,8 @@ function Router() {
          <Route path="/category" element={<Protected Component={Category} />} />
          <Route path="/category/create" element={<Protected Component={FormCategory} />} />
          <Route path="/services" element={<Protected Component={Services} />} />
+         <Route path="/services/create" element={<Protected Component={FormService} />} />
+
        <Route exact path="/forget-password" element={<ResetPassword />} />
 
        {/* <Route exact path="/user" element={<User/>}/> */}

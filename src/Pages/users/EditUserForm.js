@@ -3,55 +3,60 @@ import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useEffect, useState } from "react";
 import "../index.css";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { EditUser, getProfile } from "../../Redux/services/Apis";
+import { useDispatch } from "react-redux";
+import {  getProfile } from "../../Redux/services/Apis";
 
 function EditUserForm() {
-  const params = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.profile);
-
-  const [editUser, setEditUser] = useState({
-    name: user?.name,
+  
+  const [editUser] = useState({
+    name: "",
     email: "",
-    phone: "",
   });
 
-  const handleChange = (e) => {
-    setEditUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  // console.log(editUser,'editUser',user);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (params.id) {
-      dispatch(
-        EditUser({
-          id: params.id,
-          name: editUser.name,
-          email: editUser.email,
-          phone: editUser.phone,
-        })
-      );
-    } else {
-      console.log("error");
-    }
-  };
+  //console.log(editUser);
+  // const onInputChange = (e) => {
+  //   setEditUser({
+  //     ...editUser,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const response = await getProfile(params.id);
-        setEditUser(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadUser();
-  }, [params.id]);
+    dispatch(getProfile({id}));
+  }, [dispatch, id]);
+
+
+  // const onInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setEditUser({ ...editUser, [name]: value });
+  // };
+  //   const data = {
+  //     id: editUser.id,
+  //     name: editUser.name,
+  //     email: editUser.email,
+
+  //   };
+  //   dispatch(EditUser({ id: editUser.id, data }))
+  //     .then((response) => {
+  //       //console.log(response);
+  //       setEditUser({ ...editUser });
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+
+  // const updateContent = () => {
+  //   dispatch(EditUser({ id: editUser.id, data: editUser }))
+  //     .unwrap()
+  //     .then((response) => {
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+ 
 
   return (
     <div className="Edit User">
@@ -69,7 +74,14 @@ function EditUserForm() {
                   fullWidth
                   placeholder=" Name"
                   name="name"
-                  value={editUser?.name}
+                  value={editUser.name}
+                />
+                <Typography variant="caption">Email</Typography>
+                <TextField
+                  fullWidth
+                  placeholder=" Email"
+                  name="email"
+                  value={editUser.email}
                 />
               </Grid>
               {/* 

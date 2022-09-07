@@ -1,8 +1,10 @@
 import { Box, Grid, MenuItem, Paper, styled, Typography } from "@mui/material";
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { IMAGE_URL } from "../Config/axiosConfig";
+
 import "../index.css";
 import { deleteUser } from "../Redux/services/Apis";
 
@@ -16,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Profile() {
   const { user } = useSelector((state) => state.profile);
-  const navigate = useNavigate();
+const navigate=useNavigate();
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
@@ -66,12 +68,8 @@ function Profile() {
         <Box>
           <MenuItem>
             <div className="icn" style={{ textAlign: "center" }}>
-              <Typography
-                textAlign="center"
-                onClick={() => handleEdit(user?._id)}
-              >
-                Edit User
-              </Typography>
+              <Typography textAlign="center" onClick={() => handleEdit(user?._id)}>Edit User</Typography>
+              
             </div>
           </MenuItem>
         </Box>

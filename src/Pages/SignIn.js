@@ -14,7 +14,7 @@ const clientId =
 
 const SigninSchema = Yup.object().shape({
   password: Yup.string("Enter your password")
-    .min(5, "Password should be of minimum 5 characters length")
+    .min(4, "Password should be of minimum 5 characters length")
     .required("Password is required"),
   email: Yup.string().email("Invalid email").required("Email is Required"),
 });
