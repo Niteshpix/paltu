@@ -1,11 +1,14 @@
 import { Button, Grid, Paper, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import React, { useEffect } from "react";
-import "./index.css";
+import "../index.css";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { getServices } from "../Redux/services/Apis";
-import { IMAGE_URL } from "../Config/axiosConfig";
+import { deleteService, getServices } from "../../Redux/services/Apis";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
+import { IMAGE_URL } from "../../Config/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -16,17 +19,26 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Services() {
-  const { items: data, status } = useSelector((state) => state.services);
-
-  console.log(data);
+  const { data, status } = useSelector((state) => state.services);
+  //console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getServices());
   }, [dispatch]);
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `create`;
+    navigate(path);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteService(id));
+  };
+
   return (
-    <div className="sevices">
+    <div className="box">
       <div className="header">
         <h2>Select Services</h2>
         <Button
@@ -34,6 +46,8 @@ function Services() {
           variant="contained"
           color="secondary"
           startIcon={<AddIcon />}
+          onClick={routeChange}
+
         >
           New Data
         </Button>
@@ -45,20 +59,26 @@ function Services() {
             <Grid container spacing={5}>
               {data &&
                 data !== "" &&
-                data.data?.map((service) => (
-                  <Grid item xs={12} >
+                data?.map((service) => (
+                  <Grid item xs={12} key={service._id}>
                     <Item>
-                      <div key={service._id}>
-                        <h3>{service.title}</h3>
-
-                        <img  src={`${IMAGE_URL}${service.image}` }
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "12px",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <img
+                          src={`${IMAGE_URL}${service.image}`}
+                          style={{ height: 70, width: 80 }}
                           alt=""
-                          style={{
-                            width: "30%",
-                            border: "2px solid red",
-                            height: "10vh",
-                          }}
                         />
+                        <h3>{service.title}</h3>
+                        <div className="icn">
+                          <EditIcon />
+                          <DeleteForeverIcon    onClick={() => handleDelete(service._id)}/>
+                        </div>
                       </div>
                     </Item>
                   </Grid>

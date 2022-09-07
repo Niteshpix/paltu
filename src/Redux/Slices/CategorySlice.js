@@ -6,7 +6,10 @@ import {
 } from "../services/Apis";
 
 const initialState = {
-  items: [],
+  data: {
+    _id: "",
+    title: "",
+  },
   status: null,
   createStatus: null,
 };
@@ -23,10 +26,9 @@ const CategorySlice = createSlice({
       state.status = "pending";
     },
     [getCategories.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      state.data = action.payload;
       state.status = "success";
     },
-
     [getCategories.rejected]: (state, action) => {
       state.status = "rejected";
     },
@@ -37,7 +39,7 @@ const CategorySlice = createSlice({
       state.status = "pending";
     },
     [createCategory.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      state.data.push(action.payload);
       state.status = "success";
     },
     [createCategory.rejected]: (state, action) => {
@@ -45,15 +47,13 @@ const CategorySlice = createSlice({
     },
 
     //delete category
-    [deleteCategory.rejected]: (state, action) => {
-      state.status = "rejected";
-    },
-
     [deleteCategory.pending]: (state, action) => {
       state.status = "pending";
     },
     [deleteCategory.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      let index = state.data.findIndex((dataId) => dataId.id === action.payload.id);
+      console.log(action.payload.id)
+      state.data.splice(index, 1);
       state.status = "success";
     },
     [deleteCategory.rejected]: (state, action) => {

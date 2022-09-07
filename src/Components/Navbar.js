@@ -44,13 +44,8 @@ function Navbar() {
   };
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
-  const { items: data } = useSelector((state) => state.profile);
-  //console.log(data)
-=======
   const { user} = useSelector((state) => state.profile);
   
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
 
   useEffect(() => {
     dispatch(getProfile());
@@ -108,16 +103,12 @@ function Navbar() {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem>
-<<<<<<< HEAD
-                 <Link to="/profile" style={{textDecoration:"none"}}><Typography textAlign="center">{data?.data?.name}</Typography></Link>
-=======
                     <Typography
                       textAlign="center"
                       onClick={() => handleEdit(user?._id)}
                     >
                       {user?.name}
                     </Typography>
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
                   </MenuItem>
                   <MenuItem>
                     <Link

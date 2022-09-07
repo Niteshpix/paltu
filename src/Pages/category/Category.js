@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCategory, getCategories } from "../../Redux/services/Apis";
 import { IMAGE_URL } from "../../Config/axiosConfig";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Category() {
-  const { items: data, status } = useSelector((state) => state.category);
+  const { data, status } = useSelector((state) => state.category);
 
   //console.log(data);
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ function Category() {
   };
 
   return (
-    <div className="category">
+    <div className="box">
       <div className="header">
         <h2>Category List</h2>
         <Button
@@ -71,41 +70,31 @@ function Category() {
         <Box sx={{ flexGrow: 1 }}>
           {status === "success" ? (
             <Grid container spacing={5}>
-              {data.data?.length === 0 && (
-                <div>
-                  <Item colSpan={2} align="center">
-                    No Data
-                  </Item>
-                </div>
-              )}
-              {data &&
-                data !== "" &&
-                data.data?.map((category) => (
-                  <Grid item xs={12} key={category._id}>
-                    <Item>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "12px",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <img
-                          src={`${IMAGE_URL}${category.image}`}
-                          style={{ height: 70, width: 80 }}
-                          alt=""
+              {data?.map((category) => (
+                <Grid item xs={12} key={category?._id}>
+                  <Item>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <img
+                        src={`${IMAGE_URL}${category?.image}`}
+                        style={{ height: 70, width: 80 }}
+                        alt=""
+                      />
+                      <h3>{category?.title}</h3>
+                      <div className="icn">
+                        <DeleteForeverIcon
+                          onClick={() => handleDelete(category._id)}
                         />
-                        <h3>{category.title}</h3>
-                        <div className="icn">
-                          <EditIcon />
-                          <div onClick={()=>handleDelete(category._id)}  className="del">
-                          <DeleteForeverIcon/>
-                          </div>
-                        </div>
                       </div>
-                    </Item>
-                  </Grid>
-                ))}
+                    </div>
+                  </Item>
+                </Grid>
+              ))}
             </Grid>
           ) : status === "pending" ? (
             <p>Loading...</p>

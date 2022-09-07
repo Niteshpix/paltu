@@ -2,55 +2,56 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useState } from "react";
 import "../index.css";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createCategory } from "../../Redux/services/Apis";
-import { useNavigate } from "react-router-dom";
+import {  createServices } from "../../Redux/services/Apis";
 
-function FormCategory() {
+function FormService() {
   const dispatch = useDispatch();
-  const [categry, setCategory] = useState({
+  const [services, setSevices] = useState({
     title: "",
     photo: "",
   });
 
-  const handleChange = (e) => {
-    setCategory({
-      ...categry,
+  console.log(services);
+
+  const HandleChange = (e) => {
+    setSevices({
+      ...services,
       [e.target.name]: e.target.value,
     });
   };
 
-  const { title, photo } = categry;
-  const handleSubmit = () => {
-    dispatch(createCategory(categry));
-    navigate("/category")
-  };
-
-  let navigate = useNavigate();
-  const routeChange = () => {
-    navigate("/category");
+  const { title, photo } = services;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createServices(services));
+    alert("Services Added");
   };
 
   return (
     <div className="box">
-      <ReplyAllIcon onClick={routeChange} />
-
+      <Link to={"/services"}>
+        <ReplyAllIcon />
+      </Link>
       <div className="header">
         <Card style={{ padding: "20px", width: "100%", height: "30vh" }}>
-          <form onSubmit={handleSubmit}>
-            <h1>Add Category</h1>
+          <form onSubmit={handleSubmit} onChange={HandleChange}>
+            <h1>Add Service</h1>
+            <Grid>
               <Grid item sm={12}>
-                <Typography variant="caption">Category</Typography>
+                <Typography variant="caption">Services</Typography>
                 <TextField
                   fullWidth
-                  placeholder="Category"
+                  placeholder="Service"
                   name="title"
                   value={title}
-                  onChange={handleChange}
                 />
               </Grid>
+            </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
-              <input type="file" alt="Submit" name="photo" value={photo} onChange={handleChange}/>
+              <input type="file" alt="Submit" name="photo" value={photo} />
+
               <Button
                 size="large"
                 color="secondary"
@@ -67,4 +68,4 @@ function FormCategory() {
   );
 }
 
-export default FormCategory;
+export default FormService;

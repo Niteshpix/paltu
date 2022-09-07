@@ -39,12 +39,14 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+
+//category
 export const getCategories = createAsyncThunk(
   "category/categoryFetch",
   async () => {
     try {
       const response = await axios.get(`${url}/categories`);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.log(error.response);
     }
@@ -52,7 +54,7 @@ export const getCategories = createAsyncThunk(
 );
 
 export const createCategory = createAsyncThunk(
-  "category/categoryGet",
+  "category/categoryPost",
   async (values) => {
     try {
       const response = await axios.post(
@@ -63,9 +65,8 @@ export const createCategory = createAsyncThunk(
         },
         setHeaders()
       );
-
-      console.log(response.data);
-      return response.data;
+      //console.log(response.data.data);
+      return response.data.data;
     } catch (error) {
       console.log(error.response);
     }
@@ -84,15 +85,46 @@ export const deleteCategory = createAsyncThunk(
   }
 );
 
-export const editCategory = createAsyncThunk(
-  "category/editCategory",
-  async (cat, { rejectWithValue }) => {
+//services
+export const getServices = createAsyncThunk(
+  "services/servicesFetch",
+  async () => {
     try {
-      const response = await axios.put(`${url}/categories/${cat._id}`, {
-        title: cat.title,
-        photo: cat.photo,
-      });
-      return response.data;
+      const response = await axios.get(`${url}/services`);
+      //console.log(response.data.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
+export const createServices = createAsyncThunk(
+  "services/servicesPost",
+  async (values) => {
+    try {
+      const response = await axios.post(
+        `${url}/services`,
+        {
+          title: values.title,
+          photo: values.photo,
+        },
+        setHeaders()
+      );
+      console.log(response.data);
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
+export const deleteService = createAsyncThunk(
+  "service/deleteService",
+  async (sId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${url}/services/${sId}`, setHeaders());
+      return sId;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
@@ -100,49 +132,27 @@ export const editCategory = createAsyncThunk(
 );
 
 
-
-//services
-export const getServices = createAsyncThunk(
-  "services/servicesFetch",
-  async () => {
-    try {
-      const response = await axios.get(`${url}/services`);
-      // console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.log(error.response);
-    }
-  }
-);
 //get user
-
 export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
     const response = await axios.get(`${url}/user`, setHeaders());
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error.response);
   }
 });
+
+
 // editUser
 export const EditUser = createAsyncThunk("user/userFetch", async (user_id) => {
   try {
-<<<<<<< HEAD
-    const response = await axios.get(`${url}/profile`, setHeaders());
-
-    //console.log(response.data);
-
-=======
     const response = await axios.put(`${url}/user/${user_id}`, setHeaders());
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error.response);
   }
 });
-<<<<<<< HEAD
-=======
 
 export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
@@ -152,5 +162,3 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
     console.log(error.response);
   }
 });
-
->>>>>>> 5640793e67b5069cbca2edaf77365850b04eb820

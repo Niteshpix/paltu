@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  getProfile } from "../services/Apis";
+import { getProfile } from "../services/Apis";
 
 const initialState = {
-  user:{
-    _id:"",
-    name:"",
+  user: {
+    _id: "",
+    name: "",
   },
   status: null,
   createStatus: null,
@@ -25,7 +25,6 @@ const profileSlice = createSlice({
     [getProfile.rejected]: (state, action) => {
       state.status = "rejected";
     },
-    
   },
 });
 
