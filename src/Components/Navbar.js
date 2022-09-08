@@ -18,6 +18,9 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const showSidebar = () => setSidebar(!sidebar);
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.profile);
 
   useEffect(() => {
     checkStorage();
@@ -44,9 +47,6 @@ function Navbar() {
     localStorage.removeItem("token");
     setisLogged(false);
   };
-  const dispatch = useDispatch();
-
-  const { user } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(getProfile());

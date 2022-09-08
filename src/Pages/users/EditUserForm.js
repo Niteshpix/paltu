@@ -85,26 +85,19 @@ function EditUserForm() {
                 />
               </Grid>
 
-              {/* <Grid item sm={12}>
-                <Typography variant="caption">Phone</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="phone"
-                  onChange={handleChange}
-                  phone="phone"
-                  value={user?.phone}
-                />
-              </Grid>  */}
             </Grid>
-            <Grid item sx={{ marginTop: "100px" }}></Grid>
+            <Grid item sx={{ marginTop: "15px" }}>
             <Button
               size="large"
               color="secondary"
               type="submit"
               variant="contained"
             >
-              Submit
+              Update
             </Button>
+            
+
+            </Grid>
             <ToastContainer />
           </form>
         </Card>

@@ -7,7 +7,7 @@ const ProfilePhotoChange = () => {
 
     const data = await fetch(
       "http://localhost:4000/api/user/profilePhotoChange",
-        setHeaders(),
+      setHeaders(),
       {
         method: "post",
 
