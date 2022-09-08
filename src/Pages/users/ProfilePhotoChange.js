@@ -1,38 +1,36 @@
 import ReplyAll from "@mui/icons-material/ReplyAll";
 import { Button, Card, Grid, Typography } from "@mui/material";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, } from "react-router-dom";
-import {  UpdateProfilePhoto } from "../../Redux/services/Apis";
+import { Link } from "react-router-dom";
+import { UpdateProfilePhoto } from "../../Redux/services/Apis";
 
 function ProfilePhotoChange() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.profile);
+
   const [profilephoto, setProfilePhoto] = useState({
-    image: "",
+    photo: user?.photo,
   });
 
-
-  function handleChange(e) {
-    console.log(e.target.files);
+  const handleChange=(e)=>{
+   
     setProfilePhoto({
       ...profilephoto,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.files[0],
     });
   }
 
-
-const {image} =user
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
+    console.log(profilephoto.photo)
+  
     dispatch(
       UpdateProfilePhoto({
-        profilephoto
+        photo: profilephoto.photo,
       })
     );
   };
-
 
   return (
     <div className="profilephoto">
@@ -58,9 +56,8 @@ const {image} =user
               <input
                 type="file"
                 alt="Submit"
-                name="file"
+                name="photo"
                 accept="image/*"
-                value={image}
                 onChange={handleChange}
               />
 

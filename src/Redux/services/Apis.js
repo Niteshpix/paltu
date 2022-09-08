@@ -185,12 +185,17 @@ export const deleteUser = createAsyncThunk(
 );
 
 export const UpdateProfilePhoto = createAsyncThunk(
-  "user/profilephoto",
+  "profile/profilephoto",
   async (values) => {
-    console.log(values)
+    console.log(values);
+    let payload = toFormData({
+      photo: values.photo,
+    })
     try {
-      const response = await axios.post(
-        "user/profilePhotoChange",values,setHeaders());
+      const response = await axios.post("user/profilePhotoChange",
+        payload,
+        setHeaders()
+      );
       //console.log(response.data.data);
       return response.data.data;
     } catch (error) {
@@ -198,3 +203,11 @@ export const UpdateProfilePhoto = createAsyncThunk(
     }
   }
 );
+
+function toFormData(payload) {
+  const formData = new FormData();
+  for (let key in payload) {
+    formData.append(key, payload[key]);
+  }
+  return formData;
+}

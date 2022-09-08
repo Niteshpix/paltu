@@ -73,7 +73,7 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [UpdateProfilePhoto.fulfilled]: (state, action) => {
-      state.photo = action.payload;
+      state.user = action.payload;
       state.status = "success";
     },
     [UpdateProfilePhoto.rejected]: (state, action) => {
