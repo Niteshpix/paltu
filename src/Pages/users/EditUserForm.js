@@ -56,7 +56,7 @@ function EditUserForm() {
   };
 
   return (
-    <div className="Edit User">
+    <div className="box">
       <Link to={"/user"}>
         <ReplyAllIcon />
       </Link>

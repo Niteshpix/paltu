@@ -1,5 +1,4 @@
-import { Button, Grid, Paper, styled } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Grid, Paper, styled } from "@mui/material";
 import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import "../index.css";
@@ -29,21 +28,11 @@ console.log(data)
     dispatch(deleteUser(id));
   };
 
-
   return (
     <div className="box">
       <div className="header">
         <h2>User List</h2>
-        <Button
-          size="small"
-          variant="contained"
-          color="secondary"
-          startIcon={<AddIcon />}
-        >
-          New Data
-        </Button>
       </div>
-
       <div className="search">
         <input
           style={{
@@ -88,12 +77,15 @@ console.log(data)
                         />
                         <h3>{user.name}</h3>
                         <h3>{user.email}</h3>
-                       
+
                         <div className="icn">
                           <div className="del">
-                          <div onClick={()=>handleDelete(user._id)}  className="del">
-                          <DeleteForeverIcon/>
-                          </div>
+                            <div
+                              onClick={() => handleDelete(user._id)}
+                              className="del"
+                            >
+                              <DeleteForeverIcon />
+                            </div>
                           </div>
                         </div>
                       </div>

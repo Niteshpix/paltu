@@ -40,15 +40,15 @@ const profileSlice = createSlice({
     },
     [EditUser.fulfilled]: (state, action) => {
       state.status = "success"
-        const { id, item } = action.payload
-      if (!state.user[id]) {
-        state.user[id] = []
-      }
-      state.user[id].push(item)
-   
-     
+      const index = state.user.findIndex(usr => usr.id === action.payload);
+      console.log(action.payload)
+      state.usr[index] = {
+        ...state.usr[index],
+        ...action.payload,
+      };
+      
     },
-  
+
     [EditUser.rejected]: (state, action) => {
       state.status = "rejected";
     },

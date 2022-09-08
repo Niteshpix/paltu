@@ -141,6 +141,7 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
     console.log(error.response);
   }
 });
+
 export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
     const response = await axios.get("profile", setHeaders());
