@@ -108,8 +108,7 @@ export const createServices = createAsyncThunk(
           title: values.title,
           photo: values.photo,
           titleColor: values.titleColor,
-          description:values.description
-
+          description: values.description,
         },
         setHeaders()
       );
@@ -155,14 +154,13 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
 // editUser
 export const EditUser = createAsyncThunk(
   "profile/editProfile",
-  async ({value, id}, { rejectWithValue }) => {
+  async (values,{ rejectWithValue }) => {
     try {
-      const response = await axios.put(`${url}/user/${id}`,{id}, {
-       name: value.name,
-        email: value.email,
-      },setHeaders());
-      console.log(response.data.data,"----------------")
-      return response.data.data;
+      const response = await axios.put(`${url}/user/${values._id} `, {
+        name:values.name,
+        email:values.email
+      }, setHeaders());
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
