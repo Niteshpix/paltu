@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (values, { rejectWithValue }) => {
     try {
-      const token = await axios.post(`${url}/login`, {
+      const token = await axios.post("login", {
         email: values.email,
         password: values.password,
       });
@@ -44,7 +44,7 @@ export const getCategories = createAsyncThunk(
   "category/categoryFetch",
   async () => {
     try {
-      const response = await axios.get(`${url}/categories`);
+      const response = await axios.get("categories");
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -57,7 +57,7 @@ export const createCategory = createAsyncThunk(
   async (values) => {
     try {
       const response = await axios.post(
-        `${url}/categories`,
+        "categories",
         {
           title: values.title,
           photo: values.photo,
@@ -76,7 +76,7 @@ export const deleteCategory = createAsyncThunk(
   "category/deleteCategory",
   async (cId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${url}/categories/${cId}`, setHeaders());
+      await axios.delete(`categories/${cId}`, setHeaders());
       return cId;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -89,7 +89,7 @@ export const getServices = createAsyncThunk(
   "services/servicesFetch",
   async () => {
     try {
-      const response = await axios.get(`${url}/services`);
+      const response = await axios.get("services");
       //console.log(response.data.data);
       return response.data.data;
     } catch (error) {
@@ -103,7 +103,7 @@ export const createServices = createAsyncThunk(
   async (values) => {
     try {
       const response = await axios.post(
-        `${url}/services`,
+        "services",
         {
           title: values.title,
           photo: values.photo,
@@ -124,7 +124,7 @@ export const deleteService = createAsyncThunk(
   "service/deleteService",
   async (sId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${url}/services/${sId}`, setHeaders());
+      await axios.delete(`services/${sId}`, setHeaders());
       return sId;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -135,7 +135,7 @@ export const deleteService = createAsyncThunk(
 //get user
 export const getUser = createAsyncThunk("user/userFetch", async () => {
   try {
-    const response = await axios.get(`${url}/user`, setHeaders());
+    const response = await axios.get("user", setHeaders());
     return response.data.data;
   } catch (error) {
     console.log(error.response);
@@ -143,7 +143,7 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
 });
 export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
-    const response = await axios.get(`${url}/profile`, setHeaders());
+    const response = await axios.get("profile", setHeaders());
     return response.data.data;
   } catch (error) {
     console.log(error.response);
@@ -155,7 +155,7 @@ export const EditUser = createAsyncThunk(
   "profile/editProfile",
   async (values,{ rejectWithValue }) => {
     try {
-      const response = await axios.put(`${url}/user/${values._id} `, {
+      const response = await axios.put(`user/${values._id} `, {
         name:values.name,
         email:values.email
       }, setHeaders());
@@ -170,7 +170,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (uId, { rejectWithValue }) => {
     try {
-      await axios.delete(`${url}/user/${uId}`, setHeaders());
+      await axios.delete(`user/${uId}`, setHeaders());
       return uId;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -183,7 +183,7 @@ export const UpdateProfilePhoto = createAsyncThunk(
   async (values) => {
     try {
       const response = await axios.post(
-        `${url}/user/profilePhotoChange`,
+        "/user/profilePhotoChange",
         {
           photo: values.photo,
         },
