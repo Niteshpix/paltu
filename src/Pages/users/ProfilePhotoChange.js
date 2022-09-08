@@ -1,39 +1,68 @@
-import React from "react";
-import { setHeaders } from "../../Config/axiosConfig";
+import ReplyAll from "@mui/icons-material/ReplyAll";
+import { Button, Card, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { UpdateProfilePhoto } from "../../Redux/services/Apis";
 
-const ProfilePhotoChange = () => {
-  const setImageAction = async (event) => {
-    event.preventDefault();
+function ProfilePhotoChange() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.profile);
 
-    const data = await fetch(
-      "http://localhost:4000/api/user/profilePhotoChange",
-      setHeaders(),
-      {
-        method: "post",
 
-        body: JSON.stringify({}),
-      }
-    );
-    const uploadedImage = await data.json();
-    if (uploadedImage) {
-      console.log("Successfully uploaded image");
-    } else {
-      console.log("Error Found");
-    }
+  const [profilephoto, setProfilePhoto] = useState({
+    photo:user?.photo,
+  });
+
+  function handleChange(e) {
+    setProfilePhoto({
+      ...profilephoto,
+      [e.target.name]: e.target.files[0],
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(UpdateProfilePhoto(profilephoto));
   };
 
   return (
-    <div className="content">
-      <form onSubmit={setImageAction}>
-        <input type="file" name="image" />
-        <br />
-        <br />
-        <button type="submit" name="upload">
-          Upload
-        </button>
-      </form>
+    <div className="profilephoto">
+      <Link to={"/user"}>
+        <ReplyAll />
+      </Link>
+      <div className="header">
+        <Card style={{ padding: "20px", width: "100%", height: "30vh" }}>
+          <form onSubmit={handleSubmit}>
+            <h1>Update Photo</h1>
+            <Grid>
+              <Grid item sm={12}>
+                <Typography variant="caption">profile Photo</Typography>
+              </Grid>
+            </Grid>
+            <Grid item sx={{ marginTop: "20px" }}>
+              <input
+                type="file"
+                alt="Submit"
+                name="photo"
+                accept="image/*"
+                onChange={handleChange}
+              />
+
+              <Button
+                size="large"
+                color="secondary"
+                type="submit"
+                variant="contained"
+              >
+                Submit
+              </Button>
+            </Grid>
+          </form>
+        </Card>
+      </div>
     </div>
   );
-};
+}
 
 export default ProfilePhotoChange;

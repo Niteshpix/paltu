@@ -20,6 +20,7 @@ function FormService() {
     setSevices({
       ...services,
       [e.target.name]: e.target.value,
+      
     });
   };
 

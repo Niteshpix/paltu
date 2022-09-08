@@ -55,7 +55,6 @@ export const getCategories = createAsyncThunk(
 export const createCategory = createAsyncThunk(
   "category/categoryPost",
   async (values) => {
-
     try {
       const response = await axios.post(
         "categories",
@@ -155,12 +154,16 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
 // editUser
 export const EditUser = createAsyncThunk(
   "profile/editProfile",
-  async (values,{ rejectWithValue }) => {
+  async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`user/${values._id} `, {
-        name:values.name,
-        email:values.email
-      }, setHeaders());
+      const response = await axios.put(
+        `user/${values._id} `,
+        {
+          name: values.name,
+          email: values.email,
+        },
+        setHeaders()
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -170,15 +173,19 @@ export const EditUser = createAsyncThunk(
 
 export const changePassword = createAsyncThunk(
   "change/changePassword",
-  async (values,{ rejectWithValue }) => {
-    console.log(values)
+  async (values, { rejectWithValue }) => {
+    console.log(values);
     try {
-      const response = await axios.post(`change-password `, {
-        currentPassword:values.currentPassword,
-        newPassword:values.newPassword,
-        verifyPassword:values.verifyPassword,
-      }, setHeaders());
-      console.log(response.data.data)
+      const response = await axios.post(
+        `change-password `,
+        {
+          currentPassword: values.currentPassword,
+          newPassword: values.newPassword,
+          verifyPassword: values.verifyPassword,
+        },
+        setHeaders()
+      );
+      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -200,18 +207,31 @@ export const deleteUser = createAsyncThunk(
 
 
 export const UpdateProfilePhoto = createAsyncThunk(
-  "user/profilephoto",
-  async ({values},{ rejectWithValue }) => {
+  "profile/profilephoto",
+  async (values) => {
+    console.log(values);
+    let payload = toFormData({
+      photo: values.photo,
+    })
     try {
-      const response = await axios.post("user/profilePhotoChange ", {
-        photo:values.photo,
-       
-      }, setHeaders());
-      console.log(response.data.data)
-      return response.data;
-      
+      const response = await axios.post(
+        "user/profilePhotoChange",
+         payload,
+        setHeaders()
+      );
+      console.log(response.data.data);
+      return response.data.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return (error.response.data.message);
     }
   }
 );
+
+
+function toFormData(payload) {
+  const formData = new FormData();
+  for (let key in payload) {
+    formData.append(key, payload[key]);
+  }
+  return formData;
+}
