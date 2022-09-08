@@ -9,6 +9,7 @@ const initialState = {
   data: {
     _id: "",
     title: "",
+    image:"",
   },
   status: null,
   createStatus: null,
@@ -36,6 +37,7 @@ const CategorySlice = createSlice({
       state.status = "pending";
     },
     [createCategory.fulfilled]: (state, action) => {
+      console.log(state.data)
       state.data.push(action.payload);
       state.status = "success";
     },

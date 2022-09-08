@@ -55,12 +55,14 @@ export const getCategories = createAsyncThunk(
 export const createCategory = createAsyncThunk(
   "category/categoryPost",
   async (values) => {
+
+    console.log(values)
     try {
       const response = await axios.post(
         "categories",
         {
           title: values.title,
-          photo: values.photo,
+          photo: values.image,
         },
         setHeaders()
       );
@@ -184,7 +186,7 @@ export const UpdateProfilePhoto = createAsyncThunk(
   async (values) => {
     try {
       const response = await axios.post(
-        "/user/profilePhotoChange",
+        "user/profilePhotoChange",
         {
           photo: values.photo,
         },

@@ -81,7 +81,7 @@ function Category() {
                       }}
                     >
                       <img
-                        src={`${IMAGE_URL}${category?.image}`}
+                        src={`${IMAGE_URL}/${category?.image}`}
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />

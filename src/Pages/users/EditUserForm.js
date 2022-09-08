@@ -2,7 +2,7 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useEffect, useState } from "react";
 import "../index.css";
-import { Link, useNavigate, useParams,} from "react-router-dom";
+import { Link, useParams,} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EditUser, getProfile } from "../../Redux/services/Apis";
 
@@ -14,8 +14,6 @@ function EditUserForm() {
     email: user?.email,
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const params = useParams();
   
   const handleSubmit = async (e) => {
@@ -57,14 +55,14 @@ function EditUserForm() {
 
   return (
     <div className="box">
-      <Link to={"/user"}>
+      <Link to={"/profile"}>
         <ReplyAllIcon />
       </Link>
       <div className="header">
         <Card style={{ padding: "20px", width: "100%", height: "45  vh" }}>
           <form onSubmit={handleSubmit}>
-            <h1>Edit User</h1>
-            <Grid container Spacing={5}>
+            <h1>Edit your profile</h1>
+            <Grid container>
               <Grid item sm={12}>
                 <Typography variant="caption">Name</Typography>
                 <TextField

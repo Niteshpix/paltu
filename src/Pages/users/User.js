@@ -17,7 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function User() {
   const { data, status } = useSelector((state) => state.userData);
-console.log(data)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,40 +57,38 @@ console.log(data)
                   </Item>
                 </div>
               )}
-              {
-            
-                data?.map((user) => (
-                  <Grid item xs={12} key={user._id}>
-                    <Item>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "12px",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <img
-                          src={`${IMAGE_URL}${user.image}`}
-                          style={{ height: 70, width: 80 }}
-                          alt=""
-                        />
-                        <h3>{user.name}</h3>
-                        <h3>{user.email}</h3>
+              {data?.map((user) => (
+                <Grid item xs={12} key={user._id}>
+                  <Item>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <img
+                        src={`${IMAGE_URL}${user.image}`}
+                        style={{ height: 70, width: 80 }}
+                        alt=""
+                      />
+                      <h3>{user.name}</h3>
+                      <h3>{user.email}</h3>
 
-                        <div className="icn">
-                          <div className="del">
-                            <div
-                              onClick={() => handleDelete(user._id)}
-                              className="del"
-                            >
-                              <DeleteForeverIcon />
-                            </div>
+                      <div className="icn">
+                        <div className="del">
+                          <div
+                            onClick={() => handleDelete(user._id)}
+                            className="del"
+                          >
+                            <DeleteForeverIcon />
                           </div>
                         </div>
                       </div>
-                    </Item>
-                  </Grid>
-                ))}
+                    </div>
+                  </Item>
+                </Grid>
+              ))}
             </Grid>
           ) : status === "pending" ? (
             <p>Loading...</p>

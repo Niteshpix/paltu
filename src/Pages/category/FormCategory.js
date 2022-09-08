@@ -13,6 +13,8 @@ function FormCategory() {
     photo: "",
   });
 
+  console.log(categry)
+
   const handleChange = (e) => {
     setCategory({
       ...categry,

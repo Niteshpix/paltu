@@ -1,10 +1,8 @@
-import { Box, Grid, MenuItem, Paper, styled, Typography } from "@mui/material";
-
+import {  Button, Grid, Paper, styled, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IMAGE_URL } from "../Config/axiosConfig";
-
 import "../index.css";
 import { deleteUser } from "../Redux/services/Apis";
 
@@ -18,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Profile() {
   const { user } = useSelector((state) => state.profile);
-const navigate=useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
@@ -29,62 +27,27 @@ const navigate=useNavigate();
   };
 
   return (
-    <div
-      className="User"
-      style={{ display: "flex", flexDirection: "column", margin: "auto" }}
-    >
-      <h2 style={{ textAlign: "center" }}>Profile</h2>
-      <div className="header" style={{ margin: "auto", borderRadius: "50%" }}>
+    <div className="box">
+      <h2>Profile</h2>
+      <div className="header">
         <Grid item xs={12}>
           <Item>
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                width: "100%",
-                height: "20vh",
-              }}
+            <img src={`${IMAGE_URL}${user?.photo}`} alt="x" style={{borderRadius:"50px", height:"250px", width:"250px"}} />
+            <Typography textAlign="center">{user?.name}</Typography>
+          </Item>
+          <Item>
+            <Button
+              textAlign="center"
+              onClick={() => handleEdit(user?._id)}
             >
-              <img
-                src={`${IMAGE_URL}${user?.photo}`}
-                alt="hii"
-                style={{ width: "150px", margin: "auto", borderRadius: "50%" }}
-              />
-            </div>
+              Edit profile
+            </Button><br></br>
+            <Button onClick={() => handleDelete(user._id)}>
+              Delete Account
+            </Button>
           </Item>
         </Grid>
       </div>
-
-      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
-        <Box>
-          <MenuItem>
-            <div className="icn" style={{ textAlign: "center" }}>
-              <Typography textAlign="center">{user?.name}</Typography>
-            </div>
-          </MenuItem>
-        </Box>
-      </Grid>
-      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
-        <Box>
-          <MenuItem>
-            <div className="icn" style={{ textAlign: "center" }}>
-              <Typography textAlign="center" onClick={() => handleEdit(user?._id)}>Edit User</Typography>
-              
-            </div>
-          </MenuItem>
-        </Box>
-      </Grid>
-      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
-        <Box>
-          <MenuItem>
-            <div className="icn" style={{ textAlign: "center" }}>
-              <div onClick={() => handleDelete(user._id)} className="del">
-                <Typography>Delete User </Typography>
-              </div>
-            </div>
-          </MenuItem>
-        </Box>
-      </Grid>
     </div>
   );
 }
