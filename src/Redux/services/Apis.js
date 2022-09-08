@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setHeaders, url } from "../../Config/axiosConfig";
+import http from "../../Config/http-common";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -154,12 +155,16 @@ export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
 // editUser
 export const EditUser = createAsyncThunk(
   "profile/editProfile",
-  async (values,{ rejectWithValue }) => {
+  async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`user/${values._id} `, {
-        name:values.name,
-        email:values.email
-      }, setHeaders());
+      const response = await axios.put(
+        `user/${values._id} `,
+        {
+          name: values.name,
+          email: values.email,
+        },
+        setHeaders()
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -179,22 +184,17 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-
-
-
 export const UpdateProfilePhoto = createAsyncThunk(
   "user/profilephoto",
-  async ({values},{ rejectWithValue }) => {
+  async (values) => {
+    console.log(values)
     try {
-      const response = await axios.post("user/profilePhotoChange ", {
-        photo:values.photo,
-       
-      }, setHeaders());
-      console.log(response.data.data)
-      return response.data;
-      
+      const response = await axios.post(
+        "user/profilePhotoChange",values,setHeaders());
+      //console.log(response.data.data);
+      return response.data.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      console.log(error.response);
     }
   }
 );
