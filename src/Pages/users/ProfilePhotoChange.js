@@ -7,14 +7,14 @@ import { UpdateProfilePhoto } from "../../Redux/services/Apis";
 
 function ProfilePhotoChange() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.profile);
-
+  const { user } = useSelector((state) => state.profile);
 
   const [profilephoto, setProfilePhoto] = useState({
-    photo:user?.photo,
+    photo: user?.photo,
   });
 
-  function handleChange(e) {
+  const handleChange=(e)=>{
+   
     setProfilePhoto({
       ...profilephoto,
       [e.target.name]: e.target.files[0],
@@ -23,7 +23,13 @@ function ProfilePhotoChange() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(UpdateProfilePhoto(profilephoto));
+    console.log(profilephoto.photo)
+  
+    dispatch(
+      UpdateProfilePhoto({
+        photo: profilephoto.photo,
+      })
+    );
   };
 
   return (

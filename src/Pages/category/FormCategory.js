@@ -13,7 +13,7 @@ function FormCategory() {
     photo: "",
   });
 
-  console.log(categry)
+  console.log(categry);
 
   const handleChange = (e) => {
     setCategory({
@@ -22,15 +22,12 @@ function FormCategory() {
     });
   };
 
-  const { title, photo} = categry;
+  const { title, photo } = categry;
   const handleSubmit = (e) => {
-
     e.preventDefault();
- 
-   
-    dispatch(createCategory(categry));
-    navigate("/category")
 
+    dispatch(createCategory(categry));
+    navigate("/category");
   };
 
   let navigate = useNavigate();
@@ -46,18 +43,24 @@ function FormCategory() {
         <Card style={{ padding: "20px", width: "100%", height: "30vh" }}>
           <form onSubmit={handleSubmit}>
             <h1>Add Category</h1>
-              <Grid item sm={12}>
-                <Typography variant="caption">Category</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Category"
-                  name="title"
-                  value={title}
-                  onChange={handleChange}
-                />
-              </Grid>
+            <Grid item sm={12}>
+              <Typography variant="caption">Category</Typography>
+              <TextField
+                fullWidth
+                placeholder="Category"
+                name="title"
+                value={title}
+                onChange={handleChange}
+              />
+            </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
-              <input type="file" alt="Submit" name="photo" value={photo} onChange={handleChange}/>
+              <input
+                type="file"
+                alt="Submit"
+                name="photo"
+                value={photo}
+                onChange={handleChange}
+              />
               <Button
                 size="large"
                 color="secondary"

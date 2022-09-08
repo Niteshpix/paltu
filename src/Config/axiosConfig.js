@@ -6,8 +6,8 @@ export const BASE_URL =
   export const setHeaders = () => {
   const headers = {
     headers: {
-      token: localStorage.getItem("token"),
-    },
+      "token": localStorage.getItem("token")
+      },
   };
 
   return headers;

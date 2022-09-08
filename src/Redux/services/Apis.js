@@ -214,19 +214,17 @@ export const UpdateProfilePhoto = createAsyncThunk(
       photo: values.photo,
     })
     try {
-      const response = await axios.post(
-        "user/profilePhotoChange",
-         payload,
+      const response = await axios.post("user/profilePhotoChange",
+        payload,
         setHeaders()
       );
-      console.log(response.data.data);
+      //console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       return (error.response.data.message);
     }
   }
 );
-
 
 function toFormData(payload) {
   const formData = new FormData();

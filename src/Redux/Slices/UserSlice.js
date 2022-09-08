@@ -9,7 +9,8 @@ const initialState = {
   data: {
     _id:"", 
     name:"",
-    email:""
+    email:"",
+    photo:"",
   },
   status: null,
   createStatus: null,
