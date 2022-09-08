@@ -1,4 +1,4 @@
-import {  Button, Grid, Paper, styled, Typography } from "@mui/material";
+import { Box, Grid, MenuItem, Paper, styled, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -32,22 +32,53 @@ function Profile() {
       <div className="header">
         <Grid item xs={12}>
           <Item>
-            <img src={`${IMAGE_URL}${user?.photo}`} alt="x" style={{borderRadius:"50px", height:"250px", width:"250px"}} />
+            <img src={`${IMAGE_URL}${user?.photo}`} alt="" />
+          </Item>
+          <Item>
             <Typography textAlign="center">{user?.name}</Typography>
           </Item>
           <Item>
-            <Button
-              textAlign="center"
-              onClick={() => handleEdit(user?._id)}
-            >
-              Edit profile
-            </Button><br></br>
-            <Button onClick={() => handleDelete(user._id)}>
-              Delete Account
-            </Button>
+            <Typography textAlign="center" onClick={() => handleEdit(user?._id)}>
+              Edit User
+            </Typography>
           </Item>
         </Grid>
       </div>
+
+      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
+        <Box>
+          <MenuItem>
+            <div className="icn" style={{ textAlign: "center" }}>
+              <Typography textAlign="center">{user?.name}</Typography>
+            </div>
+          </MenuItem>
+        </Box>
+      </Grid>
+      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
+        <Box>
+          <MenuItem>
+            <div className="icn" style={{ textAlign: "center" }}>
+              <Typography
+                textAlign="center"
+                onClick={() => handleEdit(user?._id)}
+              >
+                Edit User
+              </Typography>
+            </div>
+          </MenuItem>
+        </Box>
+      </Grid>
+      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
+        <Box>
+          <MenuItem>
+            <div className="icn" style={{ textAlign: "center" }}>
+              <div onClick={() => handleDelete(user._id)} className="del">
+                <Typography>Delete User </Typography>
+              </div>
+            </div>
+          </MenuItem>
+        </Box>
+      </Grid>
     </div>
   );
 }

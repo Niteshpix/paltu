@@ -22,10 +22,15 @@ function FormCategory() {
     });
   };
 
-  const { title, photo } = categry;
-  const handleSubmit = () => {
+  const { title, photo} = categry;
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+ 
+   
     dispatch(createCategory(categry));
     navigate("/category")
+
   };
 
   let navigate = useNavigate();

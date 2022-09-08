@@ -56,7 +56,6 @@ export const createCategory = createAsyncThunk(
   "category/categoryPost",
   async (values) => {
 
-    console.log(values)
     try {
       const response = await axios.post(
         "categories",
@@ -66,7 +65,7 @@ export const createCategory = createAsyncThunk(
         },
         setHeaders()
       );
-      //console.log(response.data.data);
+      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -181,22 +180,22 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+
+
+
 export const UpdateProfilePhoto = createAsyncThunk(
   "user/profilephoto",
-  async (values) => {
+  async ({values},{ rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "user/profilePhotoChange",
-        {
-          photo: values.photo,
-        },
-        setHeaders()
-      );
-
-      console.log(response.data);
-      return response.data.data;
+      const response = await axios.post("user/profilePhotoChange ", {
+        photo:values.photo,
+       
+      }, setHeaders());
+      console.log(response.data.data)
+      return response.data;
+      
     } catch (error) {
-      console.log(error.response);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
