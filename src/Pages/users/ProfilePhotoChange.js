@@ -8,23 +8,23 @@ import { UpdateProfilePhoto } from '../../Redux/services/Apis';
 function ProfilePhotoChange() {
 
     const [profilephoto, setProfilePhoto] = useState({
-         photo: ""
+         photo: "",
       });
     const dispatch =useDispatch();
-      console.log(profilephoto);
+      
     
-      const HandleChange = (e) => {
-        setProfilePhoto({
-          ...profilephoto,
-          [e.target.name]: e.target.value,
-        });
-      };
+      function handleChange(e) {
+        console.log(e.target.files);
+        setProfilePhoto(URL.createObjectURL(e.target.files[0]));
+    }
     
       const {  photo } = profilephoto;
       const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(e)
         dispatch(UpdateProfilePhoto(profilephoto));
-        alert("update photo");
+     
+         
       };
 
   return (
@@ -34,7 +34,7 @@ function ProfilePhotoChange() {
     </Link>
     <div className="header">
       <Card style={{ padding: "20px", width: "100%", height: "30vh" }}>
-        <form onSubmit={handleSubmit} onChange={HandleChange}>
+        <form onSubmit={handleSubmit} >
           <h1>Update Photo</h1>
           <Grid>
             <Grid item sm={12}>
@@ -48,7 +48,7 @@ function ProfilePhotoChange() {
             </Grid>
           </Grid>
           <Grid item sx={{ marginTop: "20px" }}>
-            <input type="file" alt="Submit" name="photo" value={photo} />
+            <input type="file" alt="Submit" name="photo" value={photo} onChange={handleChange}/>
 
             <Button
               size="large"

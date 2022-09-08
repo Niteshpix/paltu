@@ -12,7 +12,7 @@ const initialState = {
     name: "",
     email: "",
     photo: "",
-    data:[]
+    
   },
   status: null,
   createStatus: null,

@@ -60,7 +60,7 @@ export const createCategory = createAsyncThunk(
         "categories",
         {
           title: values.title,
-          photo: values.photo,
+          image: values.image,
         },
         setHeaders()
       );
@@ -179,22 +179,22 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+
+
+
 export const UpdateProfilePhoto = createAsyncThunk(
   "user/profilephoto",
-  async (values) => {
+  async ({values},{ rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "/user/profilePhotoChange",
-        {
-          photo: values.photo,
-        },
-        setHeaders()
-      );
-
-      console.log(response.data);
-      return response.data.data;
+      const response = await axios.post("user/profilePhotoChange ", {
+        photo:values.photo,
+       
+      }, setHeaders());
+      console.log(response.data.data)
+      return response.data;
+      
     } catch (error) {
-      console.log(error.response);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

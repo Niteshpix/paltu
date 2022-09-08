@@ -2,7 +2,7 @@ import { Box, Grid, MenuItem, Paper, styled, Typography } from "@mui/material";
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import { IMAGE_URL } from "../Config/axiosConfig";
 
 import "../index.css";
@@ -45,11 +45,12 @@ const navigate=useNavigate();
                 height: "20vh",
               }}
             >
-              <img
+             <Link to="/photochnage"> <img
                 src={`${IMAGE_URL}${user?.photo}`}
                 alt="hii"
                 style={{ width: "150px", margin: "auto", borderRadius: "50%" }}
-              />
+              /></Link>
+
             </div>
           </Item>
         </Grid>

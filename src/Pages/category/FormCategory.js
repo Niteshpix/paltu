@@ -10,9 +10,9 @@ function FormCategory() {
   const dispatch = useDispatch();
   const [categry, setCategory] = useState({
     title: "",
-    photo: "",
+    image: "",
   });
-
+console.log(categry, "------")
   const handleChange = (e) => {
     setCategory({
       ...categry,
@@ -20,10 +20,15 @@ function FormCategory() {
     });
   };
 
-  const { title, photo } = categry;
-  const handleSubmit = () => {
+  const { title, image} = categry;
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+ 
+   
     dispatch(createCategory(categry));
     navigate("/category")
+
   };
 
   let navigate = useNavigate();
@@ -50,7 +55,7 @@ function FormCategory() {
                 />
               </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
-              <input type="file" alt="Submit" name="photo" value={photo} onChange={handleChange}/>
+              <input type="file" alt="Submit" name="image" value={image} onChange={handleChange}/>
               <Button
                 size="large"
                 color="secondary"

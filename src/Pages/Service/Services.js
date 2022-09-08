@@ -74,7 +74,7 @@ function Services() {
                           alt=""
                         />
                         <div className="title">
-                        <h3>{service.title}</h3>
+                        <h3 style={{color:"#00FFFF"}}>{service.title}</h3>
                         <p>{service.description}</p>
                         </div>
                         <div className="icn">

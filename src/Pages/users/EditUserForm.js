@@ -2,36 +2,38 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useEffect, useState } from "react";
 import "../index.css";
-import { Link, useNavigate, useParams,} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EditUser, getProfile } from "../../Redux/services/Apis";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function EditUserForm() {
-  const user= useSelector((state) => state.profile);
+  const user = useSelector((state) => state.profile);
 
   const [editUser, setEditUser] = useState({
     name: user?.name,
     email: user?.email,
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const params = useParams();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(editUser)
 
     if (params.id) {
       dispatch(
-        EditUser({
-          _id: params.id,
-          name: editUser.name,
-          email: editUser.email,
-        })
+        EditUser(
+          {
+            _id: params.id,
+            name: editUser.name,
+            email: editUser.email,
+          },
+          toast("User Profile Update Successfully")
+        )
       );
     } else {
-      
+    
     }
   };
 
@@ -48,7 +50,7 @@ function EditUserForm() {
   }, [params.id]);
 
   const handleChange = (e) => {
-    console.log(e.target.value,e.target.name)
+    console.log(e.target.value, e.target.name);
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value,
@@ -73,7 +75,6 @@ function EditUserForm() {
                   name="name"
                   value={editUser?.name}
                   onChange={handleChange}
-                 
                 />
                 <Typography variant="caption">Email</Typography>
                 <TextField
@@ -82,10 +83,9 @@ function EditUserForm() {
                   name="email"
                   value={editUser?.email}
                   onChange={handleChange}
-                  
                 />
               </Grid>
-              
+
               {/* <Grid item sm={12}>
                 <Typography variant="caption">Phone</Typography>
                 <TextField
@@ -103,10 +103,10 @@ function EditUserForm() {
               color="secondary"
               type="submit"
               variant="contained"
-              
             >
               Submit
             </Button>
+            <ToastContainer />
           </form>
         </Card>
       </div>

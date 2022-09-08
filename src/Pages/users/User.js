@@ -17,7 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function User() {
   const { data, status } = useSelector((state) => state.userData);
-console.log(data)
   const dispatch = useDispatch();
 
   useEffect(() => {
