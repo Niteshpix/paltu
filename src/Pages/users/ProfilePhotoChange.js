@@ -33,7 +33,7 @@ function ProfilePhotoChange() {
 
   return (
     <div className="profilephoto">
-      <Link to={"/user"}>
+      <Link to={"/profile"}>
         <ReplyAll />
       </Link>
       <div className="header">
