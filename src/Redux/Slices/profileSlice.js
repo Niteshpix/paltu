@@ -40,6 +40,7 @@ const profileSlice = createSlice({
     },
     [EditUser.fulfilled]: (state, action) => {
       state.status = "success"
+      state.user.push(action.payload);
       const index = state.user.findIndex(usr => usr.id === action.payload);
       console.log(action.payload)
       state.usr[index] = {

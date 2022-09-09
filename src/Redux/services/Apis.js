@@ -54,13 +54,14 @@ export const getCategories = createAsyncThunk(
 export const createCategory = createAsyncThunk(
   "category/categoryPost",
   async (values) => {
+    let payload = toFormData({
+      title: values.title,
+      photo: values.photo,
+    });
     try {
       const response = await axios.post(
         "categories",
-        {
-          title: values.title,
-          photo: values.image,
-        },
+        payload,
         setHeaders()
       );
       console.log(response.data.data);
@@ -99,18 +100,18 @@ export const getServices = createAsyncThunk(
 export const createServices = createAsyncThunk(
   "services/servicesPost",
   async (values) => {
+    let payload = toFormData({
+      title: values.title,
+      photo: values.photo,
+      description:values.description,
+      titleColor:values.titleColor
+    });
     try {
       const response = await axios.post(
         "services",
-        {
-          title: values.title,
-          photo: values.photo,
-          titleColor: values.titleColor,
-          description: values.description,
-        },
+        payload,
         setHeaders()
       );
-
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -159,6 +160,7 @@ export const EditUser = createAsyncThunk(
         {
           name: values.name,
           email: values.email,
+          phone:values.phone
         },
         setHeaders()
       );
@@ -221,6 +223,16 @@ export const UpdateProfilePhoto = createAsyncThunk(
     }
   }
 );
+function toFormData(payload) {
+  const formData = new FormData();
+  for (let key in payload) {
+    formData.append(key, payload[key]);
+  }
+  return formData;
+}
+
+
+
 
 ///verified-account
 export const VerifiedAccount = createAsyncThunk(
@@ -242,11 +254,3 @@ export const VerifiedAccount = createAsyncThunk(
     }
   }
 );
-
-function toFormData(payload) {
-  const formData = new FormData();
-  for (let key in payload) {
-    formData.append(key, payload[key]);
-  }
-  return formData;
-}

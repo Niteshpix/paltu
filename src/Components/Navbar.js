@@ -21,6 +21,7 @@ function Navbar() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.profile);
+  
 
   useEffect(() => {
     checkStorage();
@@ -90,8 +91,8 @@ function Navbar() {
                     >
                       <img
                         src={`${IMAGE_URL}${user?.photo}`}
-                        alt="hii"
-                        style={{ width: "40px" }}
+                        alt="HELLO"
+                        style={{ width: "40px" , borderRadius:"50%"  }}
                       />
                     </div>
                   </IconButton>

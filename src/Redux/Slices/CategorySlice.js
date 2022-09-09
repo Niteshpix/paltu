@@ -7,7 +7,6 @@ import {
 
 const initialState = {
   data: {
-    _id: "",
     title: "",
     image:"",
   },
@@ -37,9 +36,10 @@ const CategorySlice = createSlice({
       state.status = "pending";
     },
     [createCategory.fulfilled]: (state, action) => {
-      console.log(state.data)
-      state.data.push(action.payload);
+      state.data.push(action.payload)
       state.status = "success";
+
+      console.log(state)
     },
     [createCategory.rejected]: (state, action) => {
       state.status = "rejected";
