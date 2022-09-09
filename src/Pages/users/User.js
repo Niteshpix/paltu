@@ -68,12 +68,17 @@ function User() {
                       }}
                     >
                       <img
+<<<<<<< HEAD
                         src={`${IMAGE_URL}${user?.photo}`}
+=======
+                        src={`${IMAGE_URL}${user.photo}`}
+>>>>>>> 6d5ac04ea2bc3edd455bec0783177d81387f7eeb
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />
                       <h3>{user.name}</h3>
                       <h3>{user.email}</h3>
+                      <h4>{user.phone}</h4>
 
                       <div className="icn">
                         <div className="del">
