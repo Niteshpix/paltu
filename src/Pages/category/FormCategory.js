@@ -13,7 +13,7 @@ function FormCategory() {
     photo: "",
   });
 
-  console.log(categry);
+  //console.log(categry);
 
   const handleChange = (e) => {
     setCategory({
@@ -22,12 +22,12 @@ function FormCategory() {
     });
   };
 
-  const { title, photo } = categry;
+  const { title } = categry;
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(createCategory(categry));
     navigate("/category");
+    //console.log(categry)
   };
 
   let navigate = useNavigate();
@@ -58,8 +58,7 @@ function FormCategory() {
                 type="file"
                 alt="Submit"
                 name="photo"
-                value={photo}
-                onChange={handleChange}
+                onChange={(e) => setCategory({ ...categry, photo: e.target.files[0] })}
               />
               <Button
                 size="large"

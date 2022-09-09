@@ -14,7 +14,6 @@ export const registerUser = createAsyncThunk(
 
       return token.data;
     } catch (error) {
-      console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -33,7 +32,6 @@ export const loginUser = createAsyncThunk(
 
       return token.data;
     } catch (error) {
-      console.log(error.response);
       return rejectWithValue(error.response.data);
     }
   }
@@ -55,13 +53,14 @@ export const getCategories = createAsyncThunk(
 export const createCategory = createAsyncThunk(
   "category/categoryPost",
   async (values) => {
+    let payload = toFormData({
+      title: values.title,
+      photo: values.photo,
+    });
     try {
       const response = await axios.post(
         "categories",
-        {
-          title: values.title,
-          photo: values.image,
-        },
+        payload,
         setHeaders()
       );
       console.log(response.data.data);
@@ -90,7 +89,6 @@ export const getServices = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get("services");
-      //console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -112,7 +110,7 @@ export const createServices = createAsyncThunk(
         },
         setHeaders()
       );
-      //console.log(response.data);
+
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -174,7 +172,6 @@ export const EditUser = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   "change/changePassword",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const response = await axios.post(
         `change-password `,
@@ -205,27 +202,25 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-
 export const UpdateProfilePhoto = createAsyncThunk(
   "profile/profilephoto",
   async (values) => {
-    console.log(values);
     let payload = toFormData({
       photo: values.photo,
-    })
+    });
     try {
-      const response = await axios.post("user/profilePhotoChange",
+      const response = await axios.post(
+        "user/profilePhotoChange",
         payload,
         setHeaders()
       );
       //console.log(response.data.data);
       return response.data.data;
     } catch (error) {
-      return (error.response.data.message);
+      return error.response.data.message;
     }
   }
 );
-
 function toFormData(payload) {
   const formData = new FormData();
   for (let key in payload) {
@@ -233,3 +228,27 @@ function toFormData(payload) {
   }
   return formData;
 }
+
+
+
+
+///verified-account
+export const VerifiedAccount = createAsyncThunk(
+  "verified/verified-account",
+  async (values, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `verified-account `,
+        {
+          email: values.email,
+          code: values.code,
+        },
+        setHeaders()
+      );
+     
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

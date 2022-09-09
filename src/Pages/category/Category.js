@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function Category() {
   const { data, status } = useSelector((state) => state.category);
 
-  //console.log(data);
+  console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function Category() {
                       }}
                     >
                       <img
-                        src={`${IMAGE_URL}/${category?.image}`}
+                        src={`${IMAGE_URL}${category?.image}`}
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />

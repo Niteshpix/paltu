@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../Redux/services/Apis";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
+import ResetPassword from "./ForgetPassword/Resetpassword";
 
 function SignUp() {
   const paperStyle = {
@@ -17,8 +18,9 @@ function SignUp() {
     borderRadius: "20px",
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { registerStatus, registerError, token } = useSelector(
     (state) => state.auth
   );
@@ -28,31 +30,36 @@ function SignUp() {
     name: "",
     email: "",
     password: "",
-    code:"",
+    code: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(user));
+    dispatch(ResetPassword());
   };
 
-  
-      const onVerify = async () => {
-      try {
-        await axios.post("verified-account",{
-          name:user.name,
-          email:user.email,
-          code:user.code
-        });
-        <input
-          type="text"
-          placeholder="Code"
-          onChange={(e) => setUser({ ...user, code: e.target.value })}
-        />
-      } catch (error) {
-        alert(error);
-      }
-    };
+  const onVerify = async () => {
+    try {
+      await axios.post("verified-account", {
+        name: user.name,
+        email: user.email,
+        code: user.code,
+      });
+      <input
+        type="text"
+        placeholder="Code"
+        onChange={(e) => setUser({ ...user, code: e.target.value })}
+      />;
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleNavigate = (e) => {
+    console.log(e, "------");
+    navigate("/verified-account");
+  };
 
   return (
     <div>
@@ -66,7 +73,11 @@ function SignUp() {
 
             <div style={{ color: "red" }}>{token?.messages}</div>
           </Grid>
-          <form className="styleform" onClick={onVerify} onSubmit={handleSubmit}>
+          <form
+            className="styleform"
+            onClick={onVerify}
+            onSubmit={handleSubmit}
+          >
             <label className="form-label">Name</label>
             <input
               type="text"
@@ -80,7 +91,6 @@ function SignUp() {
               placeholder="email"
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
-            
 
             <label className="form-label">Password</label>
             <input
@@ -90,15 +100,20 @@ function SignUp() {
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
 
-          
-            <Button variant="contained" color="success" type="submit" >
+            <Button variant="contained" color="success" type="submit">
               {registerStatus === "pending" ? "Submitting..." : "Register"}
             </Button>
-           
-           
+
             {registerStatus === "rejected" ? <p>{registerError}</p> : null}
            
-           
+            <Typography>
+              Verfied-Account ?
+              <Link to={"/verified-account"}>
+                <Button color="secondary">click</Button>
+              </Link>
+            </Typography>
+
+
             <Typography>
               Forgot password ?
               <Link to={"/"}>
@@ -108,7 +123,9 @@ function SignUp() {
             <Typography>
               Do you have an account ?
               <Link to={"/"}>
-                <Button color="secondary">SignIn</Button>
+                <Button color="secondary" onClick={handleNavigate}>
+                  SignIn
+                </Button>
               </Link>
             </Typography>
           </form>

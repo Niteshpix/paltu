@@ -86,6 +86,7 @@ function Profile() {
               </Typography>
             </div>
           </MenuItem>
+          
         </Box>
       </Grid>
       <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
