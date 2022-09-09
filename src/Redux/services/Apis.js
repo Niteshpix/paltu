@@ -58,11 +58,7 @@ export const createCategory = createAsyncThunk(
       photo: values.photo,
     });
     try {
-      const response = await axios.post(
-        "categories",
-        payload,
-        setHeaders()
-      );
+      const response = await axios.post("categories", payload, setHeaders());
       console.log(response.data.data);
       return response.data.data;
     } catch (error) {
@@ -99,18 +95,14 @@ export const getServices = createAsyncThunk(
 export const createServices = createAsyncThunk(
   "services/servicesPost",
   async (values) => {
+    let payload = toFormData({
+      title: values.title,
+      photo: values.photo,
+      titleColor: values.titleColor,
+      description: values.description,
+    });
     try {
-      const response = await axios.post(
-        "services",
-        {
-          title: values.title,
-          photo: values.photo,
-          titleColor: values.titleColor,
-          description: values.description,
-        },
-        setHeaders()
-      );
-
+      const response = await axios.post("services", payload, setHeaders());
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -140,12 +132,12 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
   }
 });
 
-export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
+export const getProfile = createAsyncThunk("profile/profileFetch", async ({ rejectWithValue }) => {
   try {
     const response = await axios.get("profile", setHeaders());
     return response.data.data;
   } catch (error) {
-    console.log(error.response);
+    return rejectWithValue(error.response.data.message);
   }
 });
 
@@ -229,9 +221,6 @@ function toFormData(payload) {
   return formData;
 }
 
-
-
-
 ///verified-account
 export const VerifiedAccount = createAsyncThunk(
   "verified/verified-account",
@@ -245,7 +234,7 @@ export const VerifiedAccount = createAsyncThunk(
         },
         setHeaders()
       );
-     
+
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);

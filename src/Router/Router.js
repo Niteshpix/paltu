@@ -4,7 +4,6 @@ import Home from "../Pages/Home";
 import Dashboard from "../Pages/Dashboard";
 import SignUp from "../Pages/SignUp";
 import ResetPassword from "../Pages/ForgetPassword/Resetpassword";
-import Product from "../Pages/Product";
 import Protected from "./Proteced";
 import Profile from "../Pages/Profile";
 import FormCategory from "../Pages/category/FormCategory";
@@ -17,6 +16,7 @@ import FormService from "../Pages/Service/FormService";
 import ChangePass from "../Pages/ChangePass";
 import VerifiedAccounts from "../Pages/users/VerifiedAccount";
 import SignIn from "../Pages/SignIn";
+import UpdatePasswordForm from "../Pages/ForgetPassword/forgotPasswordForm";
 
 function Router() {
   return (
@@ -30,7 +30,6 @@ function Router() {
           element={<Protected Component={Dashboard} />}
         />
         <Route excat path="/" element={<Home />} />
-        <Route path="/products" element={<Product />} />
         <Route path="/category" element={<Protected Component={Category} />} />
         <Route
           path="/category/create"
@@ -64,6 +63,8 @@ function Router() {
           element={<Protected Component={ChangePass} />}
         />
         <Route exact path="/verified-account" element={<VerifiedAccounts />} />
+        <Route exact path="/otp" element={<UpdatePasswordForm />} />
+
       </Routes>
     </div>
   );

@@ -20,7 +20,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Services() {
   const { data, status } = useSelector((state) => state.services);
-  //console.log(data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,7 +68,7 @@ function Services() {
                         }}
                       >
                         <img
-                          src={`${IMAGE_URL}${service.image}`}
+                          src={`${IMAGE_URL}${service?.image}`}
                           style={{ height: 70, width: 80 }}
                           alt=""
                         />

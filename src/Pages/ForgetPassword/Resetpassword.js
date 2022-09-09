@@ -20,7 +20,7 @@ const ResetPassword = () => {
   const handleOnResetSubmit = (e) => {
     e.preventDefault();
     dispatch(sendPasswordResetOtp(email));
-	navigate("/otp")
+	  navigate("/otp")
   };
 
   const handleOnChange = (e) => {

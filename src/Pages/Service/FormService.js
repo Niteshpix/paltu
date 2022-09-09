@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "../index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {  createServices } from "../../Redux/services/Apis";
+import { createServices } from "../../Redux/services/Apis";
 
 function FormService() {
   const dispatch = useDispatch();
@@ -12,19 +12,18 @@ function FormService() {
   const [services, setSevices] = useState({
     title: "",
     photo: "",
-    titleColor:"",
-    description:""
+    titleColor: "",
+    description: "",
   });
 
   const HandleChange = (e) => {
     setSevices({
       ...services,
       [e.target.name]: e.target.value,
-      
     });
   };
 
-  const { title, photo, description, titleColor } = services;
+  const { title, description, titleColor } = services;
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createServices(services));
@@ -38,7 +37,7 @@ function FormService() {
       </Link>
       <div className="header">
         <Card style={{ padding: "20px", width: "100%", height: "60vh" }}>
-          <form onSubmit={handleSubmit} onChange={HandleChange}>
+          <form onSubmit={handleSubmit}>
             <h1>Add Service</h1>
             <Grid>
               <Grid item sm={12}>
@@ -48,6 +47,7 @@ function FormService() {
                   placeholder="Service"
                   name="title"
                   value={title}
+                  onChange={HandleChange}
                 />
                 <Typography variant="caption">Description</Typography>
                 <TextField
@@ -55,6 +55,7 @@ function FormService() {
                   placeholder="Description"
                   name="description"
                   value={description}
+                  onChange={HandleChange}
                 />
                 <Typography variant="caption">Title Color</Typography>
                 <TextField
@@ -62,11 +63,19 @@ function FormService() {
                   placeholder="color"
                   name="titleColor"
                   value={titleColor}
+                  onChange={HandleChange}
                 />
               </Grid>
             </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
-              <input type="file" alt="Submit" name="photo" value={photo} />
+              <input
+                type="file"
+                alt="Submit"
+                name="photo"
+                onChange={(e) =>
+                  setSevices({ ...services, photo: e.target.files[0] })
+                }
+              />
 
               <Button
                 size="large"
