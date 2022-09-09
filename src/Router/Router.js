@@ -15,13 +15,16 @@ import EditUserForm from "../Pages/users/EditUserForm";
 import Services from "../Pages/Service/Services";
 import FormService from "../Pages/Service/FormService";
 import ChangePass from "../Pages/ChangePass";
+import VerifiedAccounts from "../Pages/users/VerifiedAccount";
+import SignIn from "../Pages/SignIn";
 
 
 function Router() {
   return (
     <div>
-      <Routes>
+      <Routes>  
         <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/dashboard" element={<Protected Component={Dashboard} />}/>
         <Route excat path="/" element={<Home />} />
         <Route path="/products" element={<Product />} />
@@ -34,11 +37,13 @@ function Router() {
 
        {/* <Route exact path="/user" element={<User/>}/> */}
 
-          <Route exact path="/user" element={<User/>}/>
+          <Route exact path="/user" element={<Protected Component={User}/>}/>
           <Route exact path="profile/edituser/:id" element={<EditUserForm/>}/>
-         <Route exact path="/profile" element={<Profile />} />
-         <Route exact path="/photochnage" element={<ProfilePhotoChange />} />
-         <Route exact path="/changepassword" element={<ChangePass />} />
+         <Route exact path="/profile" element={<Protected Component={Profile}/>} />
+         <Route exact path="/photochnage" element={<Protected Component={ProfilePhotoChange} />} />
+         <Route exact path="/changepassword" element={<Protected Component={ChangePass} />} />
+         <Route exact path="/verified-account" element={<VerifiedAccounts />} />
+
 
 
 
