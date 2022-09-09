@@ -13,18 +13,17 @@ function ProfilePhotoChange() {
     photo: user?.photo,
   });
 
-  const handleChange=(e)=>{
-   
+  const handleChange = (e) => {
     setProfilePhoto({
       ...profilephoto,
       [e.target.name]: e.target.files[0],
     });
-  }
+    console.log(e.target.files[0])
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(profilephoto.photo)
-  
+
     dispatch(
       UpdateProfilePhoto({
         photo: profilephoto.photo,

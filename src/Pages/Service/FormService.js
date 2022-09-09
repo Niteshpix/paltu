@@ -24,6 +24,14 @@ function FormService() {
     });
   };
 
+  const handleImageChange=(e)=>{
+    setSevices({
+      ...services,
+      [e.target.name]: e.target.files[0],
+      
+    });
+  }
+
   const { title, photo, description, titleColor } = services;
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,25 +46,25 @@ function FormService() {
       </Link>
       <div className="header">
         <Card style={{ padding: "20px", width: "100%", height: "60vh" }}>
-          <form onSubmit={handleSubmit} onChange={HandleChange}>
+          <form onSubmit={handleSubmit} >
             <h1>Add Service</h1>
             <Grid>
               <Grid item sm={12}>
-                <Typography variant="caption">Services</Typography>
+                <Typography variant="caption" onChange={HandleChange}>Services</Typography>
                 <TextField
                   fullWidth
                   placeholder="Service"
                   name="title"
                   value={title}
                 />
-                <Typography variant="caption">Description</Typography>
+                <Typography variant="caption" onChange={HandleChange}>Description</Typography>
                 <TextField
                   fullWidth
                   placeholder="Description"
                   name="description"
                   value={description}
                 />
-                <Typography variant="caption">Title Color</Typography>
+                <Typography variant="caption" onChange={HandleChange}>Title Color</Typography>
                 <TextField
                   fullWidth
                   placeholder="color"
@@ -66,7 +74,7 @@ function FormService() {
               </Grid>
             </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
-              <input type="file" alt="Submit" name="photo" value={photo} />
+              <input type="file" alt="Submit" name="photo" value={photo} onChange={handleImageChange} />
 
               <Button
                 size="large"

@@ -49,7 +49,7 @@ function EditUserForm() {
   }, [params.id]);
 
   const handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
+   
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value,
