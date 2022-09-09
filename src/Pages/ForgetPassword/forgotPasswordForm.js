@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { updatePassword } from "../../Redux/Action/passwordAction";
 import "../index.css";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 
@@ -27,6 +27,7 @@ const UpdatePasswordForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(updatePassword(newPassword));
+    Navigate("/")
   };
 
   return (

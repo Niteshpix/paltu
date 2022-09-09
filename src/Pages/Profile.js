@@ -31,8 +31,8 @@ function Profile() {
       style={{ display: "flex", flexDirection: "column", margin: "auto" }}
     >
       <h2 style={{ textAlign: "center" }}>Profile</h2>
-      <div className="header" style={{ margin: "auto", borderRadius: "50%" }}>
-        <Grid item xs={12}>
+      <div  style={{ margin: "auto", borderRadius:"50%"}}>
+        <Grid item xs={12} >
           <Item>
             <div
               style={{

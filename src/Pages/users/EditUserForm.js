@@ -4,15 +4,16 @@ import React, { useEffect, useState } from "react";
 import "../index.css";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { EditUser, getProfile } from "../../Redux/services/Apis";
+import { EditUser, getUser } from "../../Redux/services/Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function EditUserForm() {
-  const user = useSelector((state) => state.profile);
+  const data = useSelector((state) => state.userData);
 
   const [editUser, setEditUser] = useState({
-    name: user?.name,
-    email: user?.email,
+    name: data?.name,
+    email: data?.email,
+    phone: data?.phone,
   });
   const dispatch = useDispatch();
   const params = useParams();
@@ -27,19 +28,19 @@ function EditUserForm() {
             _id: params.id,
             name: editUser.name,
             email: editUser.email,
+            phone: editUser.phone,
           },
           toast("User Profile Update Successfully")
         )
       );
     } else {
-    
     }
   };
 
   useEffect(() => {
     const loadTask = async () => {
       try {
-        const response = await getProfile(params.id);
+        const response = await getUser(params.id);
         setEditUser(response.data);
       } catch (error) {
         console.error(error);
@@ -49,7 +50,6 @@ function EditUserForm() {
   }, [params.id]);
 
   const handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
     setEditUser({
       ...editUser,
       [e.target.name]: e.target.value,
@@ -83,20 +83,27 @@ function EditUserForm() {
                   value={editUser?.email}
                   onChange={handleChange}
                 />
+
+                <Typography variant="caption">Phone</Typography>
+                <TextField
+                  fullWidth
+                  placeholder=" phone"
+                  name="phone"
+                  value={editUser?.phone}
+                  onChange={handleChange}
+                />
               </Grid>
-
             </Grid>
-            <Grid item sx={{ marginTop: "15px" }}>
-            <Button
-              size="large"
-              color="secondary"
-              type="submit"
-              variant="contained"
-            >
-              Update
-            </Button>
-            
 
+            <Grid item sx={{ marginTop: "15px" }}>
+              <Button
+                size="large"
+                color="secondary"
+                type="submit"
+                variant="contained"
+              >
+                Update
+              </Button>
             </Grid>
             <ToastContainer />
           </form>

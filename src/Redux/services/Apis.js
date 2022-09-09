@@ -30,7 +30,8 @@ export const loginUser = createAsyncThunk(
 
       localStorage.setItem("token", token.data.token);
 
-      return token.data;
+      return JSON.stringify(token.data);
+
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -98,11 +99,15 @@ export const createServices = createAsyncThunk(
     let payload = toFormData({
       title: values.title,
       photo: values.photo,
-      titleColor: values.titleColor,
-      description: values.description,
+      description:values.description,
+      titleColor:values.titleColor
     });
     try {
-      const response = await axios.post("services", payload, setHeaders());
+      const response = await axios.post(
+        "services",
+        payload,
+        setHeaders()
+      );
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -151,6 +156,7 @@ export const EditUser = createAsyncThunk(
         {
           name: values.name,
           email: values.email,
+          phone:values.phone
         },
         setHeaders()
       );

@@ -2,81 +2,86 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import React, { useState } from "react";
 import "../index.css";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createServices } from "../../Redux/services/Apis";
+import { useNavigate } from "react-router-dom";
 
-function FormService() {
+function FormCategory() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [services, setSevices] = useState({
+  const [service, setService] = useState({
     title: "",
     photo: "",
-    titleColor: "",
-    description: "",
+    description:"",
+    titleColor:""
   });
 
-  const HandleChange = (e) => {
-    setSevices({
-      ...services,
+  //console.log(categry);
+
+  const handleChange = (e) => {
+    setService({
+      ...service,
       [e.target.name]: e.target.value,
     });
   };
 
-  const { title, description, titleColor } = services;
+  const { title, description, titleColor } = service;
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createServices(services));
+    dispatch(createServices(service));
+    navigate("/services")
+    //console.log(categry)
+  };
+
+  let navigate = useNavigate();
+  const routeChange = () => {
     navigate("/services");
   };
 
   return (
     <div className="box">
-      <Link to={"/services"}>
-        <ReplyAllIcon />
-      </Link>
+      <ReplyAllIcon onClick={routeChange} />
+
       <div className="header">
-        <Card style={{ padding: "20px", width: "100%", height: "60vh" }}>
+        <Card style={{ padding: "20px", width: "100%", height: "50vh" }}>
           <form onSubmit={handleSubmit}>
-            <h1>Add Service</h1>
-            <Grid>
-              <Grid item sm={12}>
-                <Typography variant="caption">Services</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Service"
-                  name="title"
-                  value={title}
-                  onChange={HandleChange}
-                />
-                <Typography variant="caption">Description</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Description"
-                  name="description"
-                  value={description}
-                  onChange={HandleChange}
-                />
-                <Typography variant="caption">Title Color</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="color"
-                  name="titleColor"
-                  value={titleColor}
-                  onChange={HandleChange}
-                />
-              </Grid>
+            <h1>Add services</h1>
+            <Grid item sm={12}>
+              <Typography variant="caption">title</Typography>
+              <TextField
+                fullWidth
+                placeholder="title"
+                name="title"
+                value={title}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item sm={12}>
+              <Typography variant="caption">description</Typography>
+              <TextField
+                fullWidth
+                placeholder="description"
+                name="description"
+                value={description}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item sm={12}>
+              <Typography variant="caption">TitleColor</Typography>
+              <TextField
+                fullWidth
+                placeholder="titleColor"
+                name="titleColor"
+                value={titleColor}
+               onChange={handleChange}
+              />
             </Grid>
             <Grid item sx={{ marginTop: "20px" }}>
               <input
                 type="file"
                 alt="Submit"
                 name="photo"
-                onChange={(e) =>
-                  setSevices({ ...services, photo: e.target.files[0] })
-                }
+                onChange={(e) => setService({ ...service, photo: e.target.files[0]})}
               />
-
               <Button
                 size="large"
                 color="secondary"
@@ -93,4 +98,4 @@ function FormService() {
   );
 }
 
-export default FormService;
+export default FormCategory;

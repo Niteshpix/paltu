@@ -11,6 +11,8 @@ const initialState = {
     name:"",
     email:"",
     photo:"",
+    description:"",
+    phone:"",
   },
   status: null,
   createStatus: null,
