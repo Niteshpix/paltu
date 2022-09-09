@@ -15,6 +15,7 @@ import EditUserForm from "../Pages/users/EditUserForm";
 import Services from "../Pages/Service/Services";
 import FormService from "../Pages/Service/FormService";
 import ChangePass from "../Pages/ChangePass";
+import UpdatePasswordForm from "../Pages/ForgetPassword/forgotPasswordForm";
 
 
 function Router() {
@@ -39,6 +40,8 @@ function Router() {
          <Route exact path="/profile" element={<Profile />} />
          <Route exact path="/photochnage" element={<ProfilePhotoChange />} />
          <Route exact path="/changepassword" element={<ChangePass />} />
+         <Route exact path="/otp" element={<UpdatePasswordForm />} />
+
 
 
 
