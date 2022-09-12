@@ -8,6 +8,8 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import ReactFacebookLogin from "react-facebook-login";
 import { loginUser } from "../Redux/services/Apis";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const clientId =
   "841234692619-eodv19gt1gc623779q5ghr2rd2klh2f2.apps.googleusercontent.com";
@@ -45,6 +47,7 @@ function SignIn() {
   const { email, password } = user;
   const handleSubmit = () => {
     dispatch(loginUser(user));
+    toast("Login successfully")
     navigate("/dashboard");
   };
 
@@ -68,7 +71,7 @@ function SignIn() {
   const onSuccess = (res) => {
     //console.log("success:", res.profileObj);
 
-    navigate("/dashboard");
+    navigate("/services");
   };
   const onFailure = (err) => {
     console.log("failed:", err);
@@ -88,6 +91,8 @@ function SignIn() {
   const forgetpass = () => {
     navigate("/forget-password");
   };
+
+
 
   return (
     <div>
@@ -154,6 +159,7 @@ function SignIn() {
                 <Button variant="contained" color="success" type="submit">
                   {loginStatus === "pending" ? "Submitting..." : "Login"}
                 </Button>
+                <ToastContainer/>
 
                 <br></br>
                 <Button onClick={forgetpass}>Forgot password ?</Button>

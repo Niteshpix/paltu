@@ -28,9 +28,7 @@ export const loginUser = createAsyncThunk(
         password: values.password,
       });
 
-      localStorage.setItem("token", JSON.stringify(token.data.token));
-
-      return JSON.stringify(token.data);
+      localStorage.setItem("token", token.data.token);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -98,15 +96,11 @@ export const createServices = createAsyncThunk(
     let payload = toFormData({
       title: values.title,
       photo: values.photo,
-      description:values.description,
-      titleColor:values.titleColor
+      description: values.description,
+      titleColor: values.titleColor,
     });
     try {
-      const response = await axios.post(
-        "services",
-        payload,
-        setHeaders()
-      );
+      const response = await axios.post("services", payload, setHeaders());
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -127,7 +121,7 @@ export const deleteService = createAsyncThunk(
 );
 
 //get user
-export const getUser = createAsyncThunk("user/userFetch", async () => {
+export const getUsers = createAsyncThunk("user/UserFetch", async () => {
   try {
     const response = await axios.get("user", setHeaders());
     return response.data.data;
@@ -136,12 +130,13 @@ export const getUser = createAsyncThunk("user/userFetch", async () => {
   }
 });
 
-export const getProfile = createAsyncThunk("profile/profileFetch", async ({ rejectWithValue }) => {
+export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
   try {
     const response = await axios.get("profile", setHeaders());
+
     return response.data.data;
   } catch (error) {
-    return rejectWithValue(error.response.data.message);
+    return console.log(error.message);
   }
 });
 
@@ -155,7 +150,7 @@ export const EditUser = createAsyncThunk(
         {
           name: values.name,
           email: values.email,
-          phone:values.phone
+          phone: values.phone,
         },
         setHeaders()
       );
@@ -208,6 +203,7 @@ export const UpdateProfilePhoto = createAsyncThunk(
     try {
       const response = await axios.post(
         "user/profilePhotoChange",
+
         payload,
         setHeaders()
       );
@@ -241,6 +237,20 @@ export const VerifiedAccount = createAsyncThunk(
       );
 
       return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+// get User-With-services
+export const getUserWithSevice = createAsyncThunk(
+  "userservice/UserWithService",
+  async (id, { rejectWithValue }) => {
+ 
+    try {
+      await axios.get(`user-with-service/${id}`, setHeaders());
+      return id;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }

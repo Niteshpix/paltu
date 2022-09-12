@@ -1,11 +1,13 @@
 import React from 'react'
+import Navbar from '../Components/Navbar'
+
 
 
 function Dashboard() {
  
   return (
     <div>
-   
+<h1>welcome to dashboard</h1>
     </div>
   )
 }

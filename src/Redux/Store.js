@@ -6,6 +6,7 @@ import ServiceSlice from './Slices/ServiceSlice'
 import profileSlice from './Slices/profileSlice'
 
 import UserSlice from './Slices/UserSlice'
+import UserWithServiceSlice from './Slices/UserWithServiceSlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,7 @@ export const store = configureStore({
     passwordReset:passwordReset,
     userData:UserSlice,
     profile:profileSlice,
- 
+    userservice:UserWithServiceSlice
     
    
   },

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "../index.css";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { EditUser, getUser } from "../../Redux/services/Apis";
+import { EditUser, getUsers } from "../../Redux/services/Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function EditUserForm() {
@@ -40,7 +40,7 @@ function EditUserForm() {
   useEffect(() => {
     const loadTask = async () => {
       try {
-        const response = await getUser(params.id);
+        const response = await getUsers(params.id);
         setEditUser(response.data);
       } catch (error) {
         console.error(error);

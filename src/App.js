@@ -1,12 +1,12 @@
 import "./App.css";
-import Navbar from "./Components/Navbar";
 import Layout from "./Layout/Layout";
 import axios from "axios"
+import Navbar from "./Components/Navbar";
 axios.defaults.baseURL = process.env.REACT_APP_BE_URL;
 function App() {
   return (
     <>
-      <Navbar />
+    <Navbar/>
       <Layout />
     </>
   );

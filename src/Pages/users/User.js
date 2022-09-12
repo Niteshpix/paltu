@@ -5,7 +5,7 @@ import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { IMAGE_URL } from "../../Config/axiosConfig";
-import { deleteUser, getUser } from "../../Redux/services/Apis";
+import { deleteUser, getUsers } from "../../Redux/services/Apis";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -17,10 +17,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function User() {
   const { data, status } = useSelector((state) => state.userData);
+  console.log(data)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const handleDelete = (id) => {

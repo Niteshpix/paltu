@@ -19,7 +19,8 @@ const Item = styled(Paper)(({ theme }) => ({
 function Home() {
   return (
     <>
-      <Box sx={{ flexGrow: 1, padding: "20px" }}>
+  
+      <Box sx={{ flexGrow: 1, padding: "20px" , margin:"auto"}}>
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <Item>
@@ -47,7 +48,7 @@ function Home() {
               </div>
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} >
             <SignIn />
           </Grid>
         </Grid>

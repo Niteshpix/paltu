@@ -72,6 +72,15 @@ function Profile() {
         <Box>
           <MenuItem>
             <div className="icn" style={{ textAlign: "center" }}>
+              <Typography textAlign="center">{user?.email}</Typography>
+            </div>
+          </MenuItem>
+        </Box>
+      </Grid>
+      <Grid item xs={12} style={{ display: "flex", margin: "auto" }}>
+        <Box>
+          <MenuItem>
+            <div className="icn" style={{ textAlign: "center" }}>
               <Typography
                 textAlign="center"
                 onClick={() => handleEdit(user?._id)}

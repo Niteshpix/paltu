@@ -17,6 +17,8 @@ import ChangePass from "../Pages/ChangePass";
 import VerifiedAccounts from "../Pages/users/VerifiedAccount";
 import SignIn from "../Pages/SignIn";
 import UpdatePasswordForm from "../Pages/ForgetPassword/forgotPasswordForm";
+import Navbar from "../Components/Navbar";
+import Userservice from "../Pages/UserService";
 
 function Router() {
   return (
@@ -65,6 +67,16 @@ function Router() {
         <Route exact path="/verified-account" element={<VerifiedAccounts />} />
 
         <Route exact path="/otp" element={<UpdatePasswordForm />} />
+        <Route
+          exact
+          path="/navbar"
+          element={<Protected Component={Navbar} />}
+        />
+         <Route
+          exact
+          path="/userservice/:id"
+          element={<Protected Component={Userservice} />}
+        />
 
     
 
