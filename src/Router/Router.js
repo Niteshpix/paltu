@@ -63,11 +63,7 @@ function Router() {
           element={<Protected Component={ChangePass} />}
         />
         <Route exact path="/verified-account" element={<VerifiedAccounts />} />
-<<<<<<< HEAD
-        <Route exact path="/otp" element={<UpdatePasswordForm />} />
-=======
         <Route exact path="/otp" element={<UpdatePasswordForm/>} />
->>>>>>> 6d5ac04ea2bc3edd455bec0783177d81387f7eeb
 
       </Routes>
     </div>
