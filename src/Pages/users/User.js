@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { IMAGE_URL } from "../../Config/axiosConfig";
 import { deleteUser, getUser } from "../../Redux/services/Apis";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function User() {
   const { data, status } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getUser());
@@ -25,6 +27,7 @@ function User() {
 
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
+    navigate('/user')
   };
 
   return (
@@ -68,7 +71,7 @@ function User() {
                       }}
                     >
                       <img
-                        src={`${IMAGE_URL}${user.photo}`}
+                        src={`${IMAGE_URL}${user?.photo}`}
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />

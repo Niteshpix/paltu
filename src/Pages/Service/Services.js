@@ -6,7 +6,6 @@ import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteService, getServices } from "../../Redux/services/Apis";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
 import { IMAGE_URL } from "../../Config/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
@@ -77,7 +76,6 @@ function Services() {
                         <p>{service.description}</p>
                         </div>
                         <div className="icn">
-                          <EditIcon />
                           <DeleteForeverIcon
                             onClick={() => handleDelete(service._id)}
                           />

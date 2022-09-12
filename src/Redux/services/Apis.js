@@ -27,10 +27,9 @@ export const loginUser = createAsyncThunk(
         email: values.email,
         password: values.password,
       });
+      localStorage.setItem("token", token.data.token);
 
-      localStorage.setItem("token", JSON.stringify(token.data.token));
-
-      return JSON.stringify(token.data);
+      return JSON.stringify(token.data.token);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -98,15 +97,11 @@ export const createServices = createAsyncThunk(
     let payload = toFormData({
       title: values.title,
       photo: values.photo,
-      description:values.description,
-      titleColor:values.titleColor
+      description: values.description,
+      titleColor: values.titleColor,
     });
     try {
-      const response = await axios.post(
-        "services",
-        payload,
-        setHeaders()
-      );
+      const response = await axios.post("services", payload, setHeaders());
       return response.data.data;
     } catch (error) {
       console.log(error.response);
@@ -127,23 +122,34 @@ export const deleteService = createAsyncThunk(
 );
 
 //get user
-export const getUser = createAsyncThunk("user/userFetch", async () => {
-  try {
-    const response = await axios.get("user", setHeaders());
-    return response.data.data;
-  } catch (error) {
-    console.log(error.response);
+export const getUser = createAsyncThunk(
+  "user/userFetch",
+  async () => {
+    try {
+      const response = await axios.get("user", setHeaders());
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
-});
+);
 
-export const getProfile = createAsyncThunk("profile/profileFetch", async ({ rejectWithValue }) => {
-  try {
-    const response = await axios.get("profile", setHeaders());
-    return response.data.data;
-  } catch (error) {
-    return rejectWithValue(error.response.data.message);
+export const getProfile = createAsyncThunk(
+  "profile/profileFetch",
+  async () => {
+    try {
+      const response = await axios.get("profile", setHeaders());
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
-});
+);
+
+
+
+
+
 
 // editUser
 export const EditUser = createAsyncThunk(
@@ -155,7 +161,7 @@ export const EditUser = createAsyncThunk(
         {
           name: values.name,
           email: values.email,
-          phone:values.phone
+          phone: values.phone,
         },
         setHeaders()
       );

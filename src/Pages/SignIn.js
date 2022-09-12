@@ -30,7 +30,7 @@ function SignIn() {
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loginStatus } = useSelector((state) => state.auth);
+  const { loginStatus, token } = useSelector((state) => state.auth);
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
@@ -41,12 +41,18 @@ function SignIn() {
     password: "",
   });
 
-
   const { email, password } = user;
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     dispatch(loginUser(user));
-    navigate("/dashboard");
+
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate('/dashboard')
+    }
+  }, [navigate, token])
+
 
   const HandleChange = (e) => {
     setUser({
@@ -67,15 +73,14 @@ function SignIn() {
 
   const onSuccess = (res) => {
     //console.log("success:", res.profileObj);
-
-    navigate("/dashboard");
+    //navigate("/dashboard");
   };
   const onFailure = (err) => {
     console.log("failed:", err);
   };
 
   const responseFacebook = (response) => {
-    console.log(response);
+    //console.log(response);
     // setData(response);
     // setPicture(response.picture.data.url);
     // if (response.accessToken) {

@@ -14,9 +14,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 function Profile() {
   const { user } = useSelector((state) => state.profile);
-  console.log(user)
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
   };
