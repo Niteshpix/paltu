@@ -11,31 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/services/Apis";
 
 import { IMAGE_URL } from "../Config/axiosConfig";
+import { logoutUser } from "../Redux/Slices/AuthSlice";
 
 function Navbar() {
-  const [isLogged, setisLogged] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const showSidebar = () => setSidebar(!sidebar);
   const dispatch = useDispatch();
-
+  const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
-
-  
-
-  useEffect(() => {
-    checkStorage();
-    return () => {};
-  }, [isLogged]);
-
-  function checkStorage() {
-    if (localStorage.getItem("token", "token")) {
-      setisLogged(true);
-    } else {
-      setisLogged(false);
-    }
-  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -45,21 +30,25 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setisLogged(false);
+  const logout = (e) => {
+  if(token){
+    dispatch(logoutUser())
+
+  }
   };
 
   useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
+    if(token){
+      dispatch(getProfile());
+    }
+  }, [dispatch, token]);
 
   return (
     <div>
       <IconContext.Provider value={{ color: "#FFF" }}>
         <div className="navbar">
           <>
-            {!isLogged ? (
+            {!token ? (
               <Link
                 className="menu-bars"
                 style={{ textDecoration: "none" }}
@@ -92,8 +81,8 @@ function Navbar() {
                     >
                       <img
                         src={`${IMAGE_URL}${user?.photo}`}
-                        alt="HELLO"
-                        style={{ width: "40px" , borderRadius:"50%"  }}
+                        alt="O"
+                        style={{ width: "40px", borderRadius: "50%" }}
                       />
                     </div>
                   </IconButton>

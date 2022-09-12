@@ -38,8 +38,6 @@ const CategorySlice = createSlice({
     [createCategory.fulfilled]: (state, action) => {
       state.data.push(action.payload)
       state.status = "success";
-
-      console.log(state)
     },
     [createCategory.rejected]: (state, action) => {
       state.status = "rejected";

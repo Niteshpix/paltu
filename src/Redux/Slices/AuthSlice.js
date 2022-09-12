@@ -12,6 +12,7 @@ const initialState = {
   userLoaded: false,
 };
 
+
 export const AuthSlice = createSlice({
   name: "auth",
   initialState,
@@ -82,12 +83,13 @@ export const AuthSlice = createSlice({
         const user = action.payload;
         return {
           ...state,
-          token: action.payload,
+          token:action.payload,
           name: user.name,
           email: user.email,
           _id: user._id,
           isAdmin: user.isAdmin,
           loginStatus: "success",
+          
         };
       } else return state;
     });

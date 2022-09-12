@@ -27,8 +27,9 @@ export const loginUser = createAsyncThunk(
         email: values.email,
         password: values.password,
       });
-
       localStorage.setItem("token", token.data.token);
+
+      return JSON.stringify(token.data.token);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -121,24 +122,34 @@ export const deleteService = createAsyncThunk(
 );
 
 //get user
-export const getUsers = createAsyncThunk("user/UserFetch", async () => {
-  try {
-    const response = await axios.get("user", setHeaders());
-    return response.data.data;
-  } catch (error) {
-    console.log(error.response);
+export const getUser = createAsyncThunk(
+  "user/userFetch",
+  async () => {
+    try {
+      const response = await axios.get("user", setHeaders());
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
-});
+);
 
-export const getProfile = createAsyncThunk("profile/profileFetch", async () => {
-  try {
-    const response = await axios.get("profile", setHeaders());
-
-    return response.data.data;
-  } catch (error) {
-    return console.log(error.message);
+export const getProfile = createAsyncThunk(
+  "profile/profileFetch",
+  async () => {
+    try {
+      const response = await axios.get("profile", setHeaders());
+      return response.data.data;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
-});
+);
+
+
+
+
+
 
 // editUser
 export const EditUser = createAsyncThunk(

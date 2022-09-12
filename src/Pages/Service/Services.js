@@ -76,7 +76,6 @@ function Services() {
                         <p>{service.description}</p>
                         </div>
                         <div className="icn">
-                         
                           <DeleteForeverIcon
                             onClick={() => handleDelete(service._id)}
                           />

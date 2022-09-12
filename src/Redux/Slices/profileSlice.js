@@ -38,8 +38,13 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [EditUser.fulfilled]: (state, action) => {
-      state.user=action.payload;
-      state.status = "success";
+      state.status = "success"
+      state.user.push(action.payload);
+      const index = state.user.findIndex(usr => usr.id === action.payload);
+      state.usr[index] = {
+        ...state.usr[index],
+        ...action.payload,
+      };  
     },
 
     [EditUser.rejected]: (state, action) => {
@@ -47,10 +52,6 @@ const profileSlice = createSlice({
     },
 
     //delete user
-    [deleteUser.rejected]: (state, action) => {
-      state.status = "rejected";
-    },
-
     [deleteUser.pending]: (state, action) => {
       state.status = "pending";
     },
@@ -61,6 +62,7 @@ const profileSlice = createSlice({
     [deleteUser.rejected]: (state, action) => {
       state.status = "rejected";
     },
+
     //update photo
     [UpdateProfilePhoto.pending]: (state, action) => {
       state.status = "pending";
