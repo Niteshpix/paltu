@@ -10,7 +10,7 @@ import {
 } from "../Slices/ForgetPassSlice.js";
 
 export const sendPasswordResetOtp = (email) => async (dispatch) => {
-  console.log(reqPasswordOtpp);
+
   try {
     dispatch(otpReqPending());
 

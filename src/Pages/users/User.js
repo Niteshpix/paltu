@@ -68,11 +68,9 @@ function User() {
                       }}
                     >
                       <img
-<<<<<<< HEAD
-                        src={`${IMAGE_URL}${user?.photo}`}
-=======
-                        src={`${IMAGE_URL}${user.photo}`}
->>>>>>> 6d5ac04ea2bc3edd455bec0783177d81387f7eeb
+
+                       src={`${IMAGE_URL}${user.photo}`}
+
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />

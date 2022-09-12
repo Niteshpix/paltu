@@ -42,7 +42,6 @@ const profileSlice = createSlice({
       state.status = "success"
       state.user.push(action.payload);
       const index = state.user.findIndex(usr => usr.id === action.payload);
-      console.log(action.payload)
       state.usr[index] = {
         ...state.usr[index],
         ...action.payload,
@@ -74,6 +73,7 @@ const profileSlice = createSlice({
       state.status = "pending";
     },
     [UpdateProfilePhoto.fulfilled]: (state, action) => {
+  
       state.user = action.payload;
       state.status = "success";
     },

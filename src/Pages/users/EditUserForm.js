@@ -8,12 +8,12 @@ import { EditUser, getUser } from "../../Redux/services/Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function EditUserForm() {
-  const data = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.Profile);
 
   const [editUser, setEditUser] = useState({
-    name: data?.name,
-    email: data?.email,
-    phone: data?.phone,
+    name: user?.name,
+    email: user?.email,
+    phone: user?.phone,
   });
   const dispatch = useDispatch();
   const params = useParams();
