@@ -68,9 +68,7 @@ function User() {
                       }}
                     >
                       <img
-
-                       src={`${IMAGE_URL}${user.photo}`}
-
+                        src={`${IMAGE_URL}${user.photo}`}
                         style={{ height: 70, width: 80 }}
                         alt=""
                       />
